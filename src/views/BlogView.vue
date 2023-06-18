@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref, h, type Component } from 'vue';
-import { NCard, NSpace, NIcon, NTag, NButton, NAvatar, useLoadingBar, useMessage } from 'naive-ui';
+import { NCard, NSpace, NIcon, NButton, NAvatar, useLoadingBar, useMessage } from 'naive-ui';
 import { CreateOutline as PencilIcon } from '@vicons/ionicons5';
 import type { BlogResponse } from '@/api';
 import { findById } from '@/api/blog';
@@ -8,6 +8,7 @@ import { marked } from 'marked';
 import { useRoute } from 'vue-router';
 import router from '@/router';
 import { useAuthStore } from '@/stores/AuthStore';
+import { avatarName } from '@/tools/Comm';
 
 function renderIcon(icon: Component) {
     return () => h(NIcon, null, { default: () => h(icon) });
@@ -19,13 +20,18 @@ const route = useRoute();
 const authStore = useAuthStore();
 
 const blogId = ref<number>(0);
-const blogData = reactive<BlogResponse>({
+const data = reactive<BlogResponse>({
     id: 0,
     title: '',
     content: '',
     publish: false,
-    uid: 0,
-    cdt: 0
+    cdt: 0,
+    user: {
+        id: 0,
+        email: '',
+        username: '',
+        cdt: 0
+    }
 });
 
 async function fetchData() {
@@ -34,7 +40,7 @@ async function fetchData() {
         const res = await findById(blogId.value);
         if (res.status === 200 && res.data.code === 0) {
             if (res.data.result) {
-                Object.assign(blogData, res.data.result);
+                Object.assign(data, res.data.result);
             }
             loading.finish();
         }
@@ -64,31 +70,29 @@ onMounted(async () => {
         <n-card :bordered="false">
             <template #cover>
                 <h1>
-                    {{ blogData.title }}
+                    {{ data.title }}
                     <n-button
-                        v-if="blogData.uid == authStore.payload?.uid"
+                        v-if="data.user?.id == authStore.payload?.uid"
                         type="primary"
                         size="small"
                         ghost
                         :render-icon="renderIcon(PencilIcon)"
-                        @click="() => router.push(`/blog/${blogData.id}/editor`)"
+                        @click="() => router.push(`/blog/${data.id}/editor`)"
                     />
                 </h1>
             </template>
             <template #header>
                 <n-space>
-                    <n-avatar
-                        round
-                        size="large"
-                        src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
-                    />
+                    <n-avatar round>
+                        {{ avatarName(data.user.username) }}
+                    </n-avatar>
                     <n-space vertical>
-                        {{ authStore.payload?.name }} |
-                        {{ blogData.cdt }}
+                        {{ data.user.username }} |
+                        {{ data.cdt }}
                     </n-space>
                 </n-space>
             </template>
-            <p v-html="marked.parse(blogData.content)" />
+            <p v-html="marked.parse(data.content)" />
         </n-card>
     </n-space>
 </template>

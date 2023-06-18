@@ -33,6 +33,7 @@ import {
 import { useAuthStore } from '@/stores/AuthStore';
 import { create } from '@/api/blog';
 import router from '@/router';
+import { avatarName } from './tools/Comm';
 
 const themeRef = ref<'light' | 'dark'>('dark');
 const configProviderPropsRef = computed<ConfigProviderProps>(() => ({
@@ -189,11 +190,9 @@ async function submitCallback() {
                                 </RouterLink>
                             </div>
                             <n-dropdown :options="options" v-else>
-                                <n-avatar
-                                    round
-                                    size="medium"
-                                    src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
-                                />
+                                <n-avatar round>
+                                    {{ avatarName(authStore.payload?.name ?? '?') }}
+                                </n-avatar>
                             </n-dropdown>
                         </n-space>
                     </n-layout-header>

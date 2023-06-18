@@ -93,7 +93,7 @@ export interface BlogResponse {
     title: string;
     content: string;
     publish: boolean;
-    uid: number;
+    user: UserResponse;
     cdt: number;
 }
 

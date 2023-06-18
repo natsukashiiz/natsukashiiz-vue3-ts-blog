@@ -5,7 +5,7 @@ import type { BlogResponse } from '@/api';
 import { blogList } from '@/api/blog';
 import { PaginationState } from '@/api/enum';
 import { marked } from 'marked';
-import { textLimt } from '@/tools/Comm';
+import { avatarName, textLimt } from '@/tools/Comm';
 import dateFormat from 'dateformat';
 
 const message = useMessage();
@@ -70,12 +70,10 @@ onMounted(async () => {
             }"
         >
             <n-space align="center">
-                <n-avatar
-                    round
-                    size="small"
-                    src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
-                />
-                Unknown
+                <n-avatar round>
+                    {{ avatarName(data.user.username) }}
+                </n-avatar>
+                {{ data.user.username }}
             </n-space>
             {{ dateFormat(data.cdt, 'fullDate') }}
             <n-divider />
