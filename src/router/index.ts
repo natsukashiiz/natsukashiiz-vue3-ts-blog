@@ -1,53 +1,70 @@
-import { createRouter, createWebHistory } from "vue-router";
-import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
-import {useAuthStore} from "@/stores/AuthStore";
+import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
+import { useAuthStore } from '@/stores/AuthStore';
+
+function isAuth(
+    to: RouteLocationNormalized,
+    form: RouteLocationNormalized,
+    next: NavigationGuardNext
+) {
+    const authStore = useAuthStore();
+    if (!authStore.isAuthenticated()) next({ name: 'signIn' });
+    next();
+}
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: "/",
-      component: () => import("@/views/layouts/GlobalLayout.vue"),
-      children: [
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes: [
         {
-          path: "/",
-          name: "home",
-          component: () => import("@/views/Home.vue")
+            path: '/',
+            component: () => import('@/views/layouts/GlobalLayout.vue'),
+            children: [
+                {
+                    path: '/',
+                    name: 'home',
+                    component: () => import('@/views/HomeView.vue')
+                },
+                {
+                    path: 'sign-in',
+                    name: 'signIn',
+                    component: () => import('@/views/SignInView.vue')
+                },
+                {
+                    path: 'sign-up',
+                    name: 'signUp',
+                    component: () => import('@/views/SignUpView.vue')
+                },
+                {
+                    path: 'blog/:id',
+                    name: 'blog',
+                    component: () => import('@/views/BlogView.vue')
+                },
+                {
+                    path: 'blog/:id/editor',
+                    name: 'blogEditor',
+                    component: () => import('@/views/EditorBlogView.vue'),
+                    beforeEnter: isAuth
+                }
+            ]
         },
         {
-          path: "sign-in",
-          name: "signIn",
-          component: () => import("@/views/SignIn.vue")
-        },
-        {
-          path: "sign-up",
-          name: "signUp",
-          component: () => import("@/views/SignUp.vue")
+            path: '/account',
+            component: () => import('@/views/layouts/PrivateLayout.vue'),
+            beforeEnter: isAuth,
+            children: [
+                {
+                    path: 'profile',
+                    name: 'profile',
+                    component: () => import('@/views/ProfileView.vue')
+                },
+                {
+                    path: 'sign-history',
+                    name: 'signHistory',
+                    component: () => import('@/views/SignHistoryView.vue')
+                }
+            ]
         }
-      ]
-    },
-    {
-      path: "/account",
-      component: () => import("@/views/layouts/PrivateLayout.vue"),
-      beforeEnter: (to: RouteLocationNormalized, form: RouteLocationNormalized, next: NavigationGuardNext) => {
-        const authStore = useAuthStore();
-        if (!authStore.isAuthenticated()) next({ name : "signIn" });
-        next();
-      },
-      children: [
-        {
-          path: "profile",
-          name: "profile",
-          component: () => import("@/views/Profile.vue")
-        },
-        {
-          path: "sign-history",
-          name: "signHistory",
-          component: () => import("@/views/SignHistory.vue")
-        }
-      ]
-    }
-  ]
+    ]
 });
 
 export default router;

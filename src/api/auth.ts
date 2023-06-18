@@ -1,11 +1,21 @@
-import type {RefreshTokenRequest, ServerResponse, SigninRequest, TokenResponse} from "@/api/index";
-import {create} from "@/api/request";
+import type {
+    RefreshTokenRequest,
+    ServerResponse,
+    SigninRequest,
+    SignupRequest,
+    TokenResponse,
+    UserResponse
+} from '@/api/index';
+import { create } from '@/api/request';
 const client = create();
 
+const signUp = (body: SignupRequest): ServerResponse<UserResponse> =>
+    client.post('/v1/auth/signup', body);
+
 const signIn = (body: SigninRequest): ServerResponse<TokenResponse> =>
-    client.post('/v1/auth/signin', body)
+    client.post('/v1/auth/signin', body);
 
-const refresh = (body: RefreshTokenRequest): ServerResponse<TokenResponse> =>
-    client.post('/v1/auth/refresh', body)
+const refreshToken = (body: RefreshTokenRequest): ServerResponse<TokenResponse> =>
+    client.post('/v1/auth/refresh', body);
 
-export {signIn, refresh}
+export { signUp, signIn, refreshToken };
