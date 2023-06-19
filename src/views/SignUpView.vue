@@ -2,18 +2,7 @@
 // import
 import { ref } from 'vue';
 import type { FormInst, FormRules, FormValidationError } from 'naive-ui';
-import {
-    NButton,
-    NCard,
-    NCol,
-    NForm,
-    NFormItem,
-    NInput,
-    NRow,
-    NSpace,
-    useMessage,
-    useLoadingBar
-} from 'naive-ui';
+import { useMessage, useLoadingBar } from 'naive-ui';
 import { useRouter } from 'vue-router';
 import type { SignupRequest } from '@/api';
 import { signUp } from '@/api/auth';

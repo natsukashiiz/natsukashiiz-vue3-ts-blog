@@ -1,26 +1,17 @@
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue';
-import { NCard, NSpace, NAvatar, NDivider, useLoadingBar, useMessage } from 'naive-ui';
+import { onMounted, ref } from 'vue';
+import { useLoadingBar, useMessage } from 'naive-ui';
 import type { BlogResponse } from '@/api';
-import { blogList } from '@/api/blog';
+import { findAll } from '@/api/blog';
 import { PaginationState } from '@/api/enum';
-import { marked } from 'marked';
-import { avatarName, textLimt } from '@/tools/Comm';
-import dateFormat from 'dateformat';
+import 'md-editor-v3/lib/preview.css';
+import MBlog from '@/components/MBlog.vue';
+import MAvatar from '@/components/MAvatar.vue';
 
 const message = useMessage();
 const loading = useLoadingBar();
 
 const dataList = ref<Array<BlogResponse>>([]);
-
-const handlePageChange = async (curPage: number) => {
-    page.value = curPage;
-    await fetchData();
-};
-const handlePageSizeChange = async (curPageSize: number) => {
-    pageSize.value = curPageSize;
-    await fetchData();
-};
 
 const page = ref<number>(1);
 const pageSize = ref<number>(100);
@@ -29,7 +20,7 @@ const pageCount = ref<number>(100);
 async function fetchData() {
     loading.start();
     try {
-        const res = await blogList({
+        const res = await findAll({
             page: page.value,
             limit: pageSize.value,
             sortBy: PaginationState.SORT_BY.toString(),
@@ -62,26 +53,15 @@ onMounted(async () => {
 
 <template>
     <n-space vertical>
-        <n-card
-            v-for="data in dataList"
-            :key="data.id"
-            :segmented="{
-                content: true
-            }"
-        >
-            <n-space align="center">
-                <n-avatar round>
-                    {{ avatarName(data.user.username) }}
-                </n-avatar>
-                {{ data.user.username }}
-            </n-space>
-            {{ dateFormat(data.cdt, 'fullDate') }}
-            <n-divider />
-            <router-link :to="`/blog/${data.id}`">
-                <h1>{{ data.title }}</h1>
-                <p v-html="marked.parse(textLimt(data.content, 200))" />
-            </router-link>
-        </n-card>
+        <div v-for="data in dataList" :key="data.id">
+            <MBlog :data="data">
+                <template #header>
+                    <router-link :to="{ path: `/@${data.uname}` }">
+                        <MAvatar :name="data.uname"
+                    /></router-link>
+                </template>
+            </MBlog>
+        </div>
     </n-space>
 </template>
 
@@ -90,9 +70,5 @@ onMounted(async () => {
     max-width: 50%;
     margin-left: auto;
     margin-right: auto;
-}
-a {
-    color: #000;
-    text-decoration: none;
 }
 </style>

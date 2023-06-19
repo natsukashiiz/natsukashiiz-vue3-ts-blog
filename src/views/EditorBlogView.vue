@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 import 'md-editor-v3/lib/style.css';
 import { MdEditor } from 'md-editor-v3';
-import { useLoadingBar, useMessage, NSwitch } from 'naive-ui';
+import { useLoadingBar, useMessage } from 'naive-ui';
 import { findById, update, publish } from '@/api/blog';
 import { useRoute } from 'vue-router';
 import router from '@/router';

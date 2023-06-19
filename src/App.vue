@@ -1,28 +1,8 @@
 <script setup lang="ts">
-import type { Component } from 'vue';
 import { h, ref, computed } from 'vue';
 import { RouterLink, RouterView } from 'vue-router';
 import type { MenuOption, ConfigProviderProps } from 'naive-ui';
-import {
-    NAvatar,
-    NButton,
-    NDropdown,
-    NIcon,
-    NLayout,
-    NLayoutFooter,
-    NLayoutHeader,
-    NLoadingBarProvider,
-    NMenu,
-    NMessageProvider,
-    NModal,
-    NSpace,
-    NForm,
-    NInput,
-    darkTheme,
-    lightTheme,
-    createDiscreteApi,
-    useMessage
-} from 'naive-ui';
+import { darkTheme, lightTheme, createDiscreteApi } from 'naive-ui';
 import {
     CreateOutline as CreateIcon,
     HomeOutline as HomeIcon,
@@ -33,7 +13,7 @@ import {
 import { useAuthStore } from '@/stores/AuthStore';
 import { create } from '@/api/blog';
 import router from '@/router';
-import { avatarName } from './tools/Comm';
+import { avatarName, renderIcon, htmlToBase64 } from '@/tools/Comm';
 
 const themeRef = ref<'light' | 'dark'>('dark');
 const configProviderPropsRef = computed<ConfigProviderProps>(() => ({
@@ -47,11 +27,6 @@ const { message, notification, dialog, loadingBar } = createDiscreteApi(
 );
 
 const authStore = useAuthStore();
-const activeKey = ref<string | null>(null);
-
-function renderIcon(icon: Component) {
-    return () => h(NIcon, null, { default: () => h(icon) });
-}
 
 const menuOptions: MenuOption[] = [
     {
@@ -77,7 +52,7 @@ const options: MenuOption[] = [
                 RouterLink,
                 {
                     to: {
-                        name: 'profile'
+                        path: `/@${authStore.payload?.name}`
                     }
                 },
                 { default: () => 'Profile' }
@@ -131,7 +106,7 @@ async function submitCallback() {
         try {
             const res = await create({
                 title: blogTitle.value,
-                content: ''
+                content: htmlToBase64('## Hello World.')
             });
             if (res.status === 200 && res.data.code === 0) {
                 if (res.data.result) {
@@ -176,11 +151,7 @@ async function submitCallback() {
                 <n-layout position="absolute">
                     <n-layout-header style="height: 60px; padding: 12px" bordered>
                         <n-space justify="space-between">
-                            <n-menu
-                                v-model:value="activeKey"
-                                mode="horizontal"
-                                :options="menuOptions"
-                            />
+                            <n-menu mode="horizontal" :options="menuOptions" />
                             <div v-if="!authStore.isAuthenticated()">
                                 <RouterLink :to="{ name: 'signIn' }" style="margin-right: 10px">
                                     <n-button type="default"> Sign In</n-button>

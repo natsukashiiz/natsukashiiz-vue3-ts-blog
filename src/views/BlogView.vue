@@ -1,18 +1,17 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref, h, type Component } from 'vue';
-import { NCard, NSpace, NIcon, NButton, NAvatar, useLoadingBar, useMessage } from 'naive-ui';
+import { useLoadingBar, useMessage } from 'naive-ui';
 import { CreateOutline as PencilIcon } from '@vicons/ionicons5';
 import type { BlogResponse } from '@/api';
 import { findById } from '@/api/blog';
-import { marked } from 'marked';
+import { MdPreview } from 'md-editor-v3';
+import 'md-editor-v3/lib/preview.css';
 import { useRoute } from 'vue-router';
 import router from '@/router';
 import { useAuthStore } from '@/stores/AuthStore';
 import { avatarName } from '@/tools/Comm';
-
-function renderIcon(icon: Component) {
-    return () => h(NIcon, null, { default: () => h(icon) });
-}
+import dateFormat from 'dateformat';
+import { renderIcon } from '@/tools/Comm';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -26,12 +25,8 @@ const data = reactive<BlogResponse>({
     content: '',
     publish: false,
     cdt: 0,
-    user: {
-        id: 0,
-        email: '',
-        username: '',
-        cdt: 0
-    }
+    uid: 0,
+    uname: ''
 });
 
 async function fetchData() {
@@ -68,11 +63,20 @@ onMounted(async () => {
 <template>
     <n-space vertical>
         <n-card :bordered="false">
-            <template #cover>
+            <template #header>
+                <n-space>
+                    <n-avatar round>
+                        {{ avatarName(data.uname) }}
+                    </n-avatar>
+                    <n-space vertical>
+                        {{ data.uname }} |
+                        {{ dateFormat(data.cdt, 'fullDate') }}
+                    </n-space>
+                </n-space>
                 <h1>
                     {{ data.title }}
                     <n-button
-                        v-if="data.user?.id == authStore.payload?.uid"
+                        v-if="data.uid == authStore.payload?.uid"
                         type="primary"
                         size="small"
                         ghost
@@ -81,18 +85,12 @@ onMounted(async () => {
                     />
                 </h1>
             </template>
-            <template #header>
-                <n-space>
-                    <n-avatar round>
-                        {{ avatarName(data.user.username) }}
-                    </n-avatar>
-                    <n-space vertical>
-                        {{ data.user.username }} |
-                        {{ data.cdt }}
-                    </n-space>
-                </n-space>
-            </template>
-            <p v-html="marked.parse(data.content)" />
+            <MdPreview
+                editor-id="preview-only"
+                :model-value="data.content"
+                language="en-US"
+                preview-theme="github"
+            />
         </n-card>
     </n-space>
 </template>

@@ -93,8 +93,9 @@ export interface BlogResponse {
     title: string;
     content: string;
     publish: boolean;
-    user: UserResponse;
     cdt: number;
+    uid: number;
+    uname: string;
 }
 
 export interface BlogRequest {

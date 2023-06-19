@@ -16,6 +16,11 @@ const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
+            path: '/@:uname',
+            name: 'profile',
+            component: () => import('@/views/ProfileView.vue')
+        },
+        {
             path: '/',
             component: () => import('@/views/layouts/GlobalLayout.vue'),
             children: [
@@ -52,11 +57,6 @@ const router = createRouter({
             component: () => import('@/views/layouts/PrivateLayout.vue'),
             beforeEnter: isAuth,
             children: [
-                {
-                    path: 'profile',
-                    name: 'profile',
-                    component: () => import('@/views/ProfileView.vue')
-                },
                 {
                     path: 'sign-history',
                     name: 'signHistory',

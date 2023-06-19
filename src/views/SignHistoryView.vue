@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import type { DataTableColumns } from 'naive-ui';
-import { NDataTable, NPagination, NSpace, useLoadingBar, useMessage } from 'naive-ui';
+import { useLoadingBar, useMessage } from 'naive-ui';
 import type { SignHistoryResponse } from '@/api';
 import { signHistory } from '@/api/user';
 import { PaginationState } from '@/api/enum';
