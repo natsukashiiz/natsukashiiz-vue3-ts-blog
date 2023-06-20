@@ -73,15 +73,15 @@ const rules: FormRules = {
 
 <template>
     <n-space justify="center" style="margin-top: 10vh">
-        <n-card title="Sign Up" style="width: 500px">
+        <n-card :title="$t('menu.signUp')" style="width: 500px">
             <n-form ref="formRef" :model="modelRef" :rules="rules">
-                <n-form-item path="email" label="Email">
+                <n-form-item path="email" :label="$t('common.email')">
                     <n-input v-model:value="modelRef.email" @keydown.enter.prevent />
                 </n-form-item>
-                <n-form-item path="username" label="Username">
+                <n-form-item path="username" :label="$t('common.username')">
                     <n-input v-model:value="modelRef.username" @keydown.enter.prevent />
                 </n-form-item>
-                <n-form-item path="password" label="Password">
+                <n-form-item path="password" :label="$t('common.password')">
                     <n-input
                         v-model:value="modelRef.password"
                         type="password"
@@ -92,7 +92,7 @@ const rules: FormRules = {
                     <n-col :span="24">
                         <div style="display: flex; justify-content: flex-end">
                             <n-button roundee type="primary" @click="handleSubmit">
-                                Submit
+                                {{ $t('action.submit') }}
                             </n-button>
                         </div>
                     </n-col>

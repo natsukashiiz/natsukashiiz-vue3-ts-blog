@@ -70,13 +70,13 @@ const rules: FormRules = {
 </script>
 
 <template>
-    <n-space justify="center" style="margin-top: 20vh">
-        <n-card title="Sign In" style="width: 500px">
+    <n-space justify="center" style="margin-top: 7%">
+        <n-card :title="$t('menu.signIn')" style="width: 500px">
             <n-form ref="formRef" :model="modelRef" :rules="rules">
-                <n-form-item path="username" label="Username">
+                <n-form-item path="username" :label="$t('common.username')">
                     <n-input v-model:value="modelRef.username" @keydown.enter.prevent />
                 </n-form-item>
-                <n-form-item path="password" label="Password">
+                <n-form-item path="password" :label="$t('common.password')">
                     <n-input
                         v-model:value="modelRef.password"
                         type="password"
@@ -86,7 +86,9 @@ const rules: FormRules = {
                 <n-row :gutter="[0, 24]">
                     <n-col :span="24">
                         <div style="display: flex; justify-content: flex-end">
-                            <n-button type="primary" @click="handleSubmit"> Submit </n-button>
+                            <n-button type="primary" @click="handleSubmit">{{
+                                $t('action.submit')
+                            }}</n-button>
                         </div>
                     </n-col>
                 </n-row>

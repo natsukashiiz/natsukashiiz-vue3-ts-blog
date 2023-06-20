@@ -1,5 +1,6 @@
 import { type Component, h } from 'vue';
 import { NIcon } from 'naive-ui';
+import { useI18n } from 'vue-i18n';
 
 function textLimt(text: string, limit: number): string {
     return text.substring(0, limit) + (text.length > limit ? '...' : '');
@@ -27,4 +28,8 @@ function base64ToHtml(base64: string): string {
     return html;
 }
 
-export { textLimt, avatarName, renderIcon, htmlToBase64, base64ToHtml };
+function t(str: string) {
+    return useI18n().t(str);
+}
+
+export { textLimt, avatarName, renderIcon, htmlToBase64, base64ToHtml, i18n, t };
