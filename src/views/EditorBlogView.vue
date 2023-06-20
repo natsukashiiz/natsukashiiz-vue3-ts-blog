@@ -96,9 +96,15 @@ onMounted(async () => {
 </script>
 
 <template>
-    <n-switch v-model:value="publishRef" @update:value="handlePublish" style="margin-bottom: 10px">
-        <template #checked>Publish</template>
-        <template #unchecked>Private</template>
-    </n-switch>
+    <n-space justify="end">
+        <n-switch
+            v-model:value="publishRef"
+            @update:value="handlePublish"
+            style="margin-bottom: 10px"
+        >
+            <template #checked>Publish</template>
+            <template #unchecked>Private</template>
+        </n-switch>
+    </n-space>
     <MdEditor v-model="text" language="en-US" preview-theme="github" @save="handleSave" />
 </template>

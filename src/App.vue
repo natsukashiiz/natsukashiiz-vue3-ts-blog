@@ -61,7 +61,7 @@ const options: MenuOption[] = [
         icon: renderIcon(UserIcon)
     },
     {
-        label: 'Create blog',
+        label: 'Write',
         key: 'createBlog',
         icon: renderIcon(CreateIcon),
         props: {
@@ -168,11 +168,7 @@ async function submitCallback() {
                         </n-space>
                     </n-layout-header>
                     <RouterView />
-                    <n-layout-footer
-                        bordered
-                        position="absolute"
-                        style="height: 60px; padding: 12px"
-                    >
+                    <n-layout-footer bordered style="height: 60px; padding: 12px">
                         Power by
                         <a target="_blank" href="https://github.com/natsukashiiz">ɴᴀᴛsᴜᴋᴀsʜɪɪᴢ </a>
                     </n-layout-footer>
