@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useLoadingBar, useMessage } from 'naive-ui';
 import type { BlogResponse } from '@/api';
 import { findByUser } from '@/api/blog';
@@ -76,6 +76,7 @@ onBeforeRouteUpdate(async (to, from) => {
 </script>
 
 <template>
+    <n-space justify="s"></n-space>
     <n-layout has-sider position="absolute" style="top: 70px; bottom: 70px">
         <n-layout-sider bordered content-style="padding: 50px;">
             <n-space align="center">

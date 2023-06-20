@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { h, ref, computed } from 'vue';
 import { RouterLink, RouterView } from 'vue-router';
-import type { MenuOption, ConfigProviderProps, SelectOption } from 'naive-ui';
+import type { MenuOption, ConfigProviderProps } from 'naive-ui';
 import {
     darkTheme,
     lightTheme,
@@ -179,7 +179,7 @@ async function submitCallback() {
                                     <n-popselect
                                         v-model:value="lang"
                                         :options="langOptions"
-                                        :on-update:value="(val:string) => lang = langOptions.find(e=>e.value==val)?.label"
+                                        :on-update:value="(val:string) => lang = langOptions.find(e=>e.value==val)?.label ?? 'English'"
                                     >
                                         <n-button>{{ lang }}</n-button>
                                     </n-popselect>
