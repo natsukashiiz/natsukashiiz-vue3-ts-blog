@@ -24,7 +24,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-    <n-layout position="absolute" style="top: 60px; bottom: 60px">
+    <n-layout position="absolute" style="top: 60px; bottom: 50px">
         <n-layout content-style="padding: 15px;">
             <RouterView />
         </n-layout>

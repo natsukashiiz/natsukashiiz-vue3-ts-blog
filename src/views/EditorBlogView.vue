@@ -12,15 +12,19 @@ const loading = useLoadingBar();
 const route = useRoute();
 
 const text = ref<string>('');
+const title = ref<string>('');
 const publishRef = ref<boolean>(false);
 const blogId = ref<number>(0);
 
 async function handleSave() {
     loading.start();
     try {
-        const res = await update(blogId.value, { content: text.value });
+        const res = await update(blogId.value, { title: title.value, content: text.value });
         if (res.status === 200 && res.data.code === 0) {
-            if (res.data.result) text.value = res.data.result.content;
+            if (res.data.result) {
+                title.value = res.data.result.title;
+                text.value = res.data.result.content;
+            }
             loading.finish();
             message.success('Saved');
         }
@@ -46,6 +50,7 @@ async function handlePublish() {
         const res = await publish(blogId.value);
         if (res.status === 200 && res.data.code === 0) {
             if (res.data.result) {
+                title.value = res.data.result.title;
                 text.value = res.data.result.content;
                 publishRef.value = res.data.result.publish;
             }
@@ -69,6 +74,7 @@ async function fetchData() {
         const res = await findById(blogId.value);
         if (res.status === 200 && res.data.code === 0) {
             if (res.data.result) {
+                title.value = res.data.result.title;
                 text.value = res.data.result.content;
                 publishRef.value = res.data.result.publish;
             }
@@ -96,7 +102,15 @@ onMounted(async () => {
 </script>
 
 <template>
-    <n-space justify="end">
+    <n-space justify="space-between">
+        <n-input
+            v-model:value="title"
+            @keyup.enter="handleSave"
+            placeholder="Title"
+            :bordered="false"
+            size="large"
+            style="width: 50rem"
+        />
         <n-switch
             v-model:value="publishRef"
             @update:value="handlePublish"

@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import { h, ref, computed } from 'vue';
 import { RouterLink, RouterView } from 'vue-router';
-import type { MenuOption, ConfigProviderProps } from 'naive-ui';
-import { darkTheme, lightTheme, createDiscreteApi } from 'naive-ui';
+import type { MenuOption, ConfigProviderProps, SelectOption } from 'naive-ui';
+import {
+    darkTheme,
+    lightTheme,
+    createDiscreteApi,
+    thTH,
+    dateThTH,
+    NConfigProvider
+} from 'naive-ui';
 import {
     CreateOutline as CreateIcon,
     HomeOutline as HomeIcon,
@@ -26,7 +33,19 @@ const { message, notification, dialog, loadingBar } = createDiscreteApi(
     }
 );
 
+const lang = ref('English');
 const authStore = useAuthStore();
+
+const langOptions = [
+    {
+        label: 'English',
+        value: 'enUs'
+    },
+    {
+        label: 'ไทย',
+        value: 'thTh'
+    }
+];
 
 const menuOptions: MenuOption[] = [
     {
@@ -133,47 +152,72 @@ async function submitCallback() {
 </script>
 
 <template>
-    <n-loading-bar-provider>
-        <n-message-provider>
-            <div style="height: 100vh; position: relative">
-                <n-modal
-                    v-model:show="showModal"
-                    preset="dialog"
-                    title="Create blog"
-                    positive-text="Submit"
-                    negative-text="Cancel"
-                    @positive-click="submitCallback"
-                >
-                    <n-form inline>
-                        <n-input v-model:value="blogTitle" placeholder="Enter title" />
-                    </n-form>
-                </n-modal>
-                <n-layout position="absolute">
-                    <n-layout-header style="height: 60px; padding: 12px" bordered>
-                        <n-space justify="space-between">
-                            <n-menu mode="horizontal" :options="menuOptions" />
-                            <div v-if="!authStore.isAuthenticated()">
-                                <RouterLink :to="{ name: 'signIn' }" style="margin-right: 10px">
-                                    <n-button type="default"> Sign In</n-button>
-                                </RouterLink>
-                                <RouterLink :to="{ name: 'signUp' }">
-                                    <n-button type="primary"> Create a account</n-button>
-                                </RouterLink>
-                            </div>
-                            <n-dropdown :options="options" v-else>
-                                <n-avatar round>
-                                    {{ avatarName(authStore.payload?.name ?? '?') }}
-                                </n-avatar>
-                            </n-dropdown>
-                        </n-space>
-                    </n-layout-header>
-                    <RouterView />
-                    <n-layout-footer bordered style="height: 60px; padding: 12px">
-                        Power by
-                        <a target="_blank" href="https://github.com/natsukashiiz">ɴᴀᴛsᴜᴋᴀsʜɪɪᴢ </a>
-                    </n-layout-footer>
-                </n-layout>
-            </div>
-        </n-message-provider>
-    </n-loading-bar-provider>
+    <n-config-provider :locale="thTH" :date-locale="dateThTH">
+        <n-loading-bar-provider>
+            <n-message-provider>
+                <div style="height: 100vh; position: relative">
+                    <!-- modal write -->
+                    <n-modal
+                        v-model:show="showModal"
+                        preset="dialog"
+                        title="Write"
+                        positive-text="Submit"
+                        negative-text="Cancel"
+                        @positive-click="submitCallback"
+                    >
+                        <n-form inline>
+                            <n-input v-model:value="blogTitle" placeholder="Enter title" />
+                        </n-form>
+                    </n-modal>
+                    <n-layout position="absolute">
+                        <!-- header -->
+                        <n-layout-header style="height: 60px; padding: 12px" bordered>
+                            <!-- topbar -->
+                            <n-space justify="space-between">
+                                <n-menu mode="horizontal" :options="menuOptions" />
+                                <n-space>
+                                    <n-popselect
+                                        v-model:value="lang"
+                                        :options="langOptions"
+                                        :on-update:value="(val:string) => lang = langOptions.find(e=>e.value==val)?.label"
+                                    >
+                                        <n-button>{{ lang }}</n-button>
+                                    </n-popselect>
+                                    <div v-if="!authStore.isAuthenticated()">
+                                        <RouterLink
+                                            :to="{ name: 'signIn' }"
+                                            style="margin-right: 10px"
+                                        >
+                                            <n-button type="default"> Sign In</n-button>
+                                        </RouterLink>
+                                        <RouterLink :to="{ name: 'signUp' }">
+                                            <n-button type="primary"> Create a account</n-button>
+                                        </RouterLink>
+                                    </div>
+                                    <n-dropdown :options="options" v-else>
+                                        <n-avatar round>
+                                            {{ avatarName(authStore.payload?.name ?? '?') }}
+                                        </n-avatar>
+                                    </n-dropdown>
+                                </n-space>
+                            </n-space>
+                        </n-layout-header>
+                        <!-- content -->
+                        <RouterView />
+                        <!-- footer -->
+                        <n-layout-footer
+                            bordered
+                            position="absolute"
+                            style="height: 50px; padding: 12px"
+                        >
+                            Power by
+                            <a target="_blank" href="https://github.com/natsukashiiz"
+                                >ɴᴀᴛsᴜᴋᴀsʜɪɪᴢ
+                            </a>
+                        </n-layout-footer>
+                    </n-layout>
+                </div>
+            </n-message-provider>
+        </n-loading-bar-provider>
+    </n-config-provider>
 </template>
