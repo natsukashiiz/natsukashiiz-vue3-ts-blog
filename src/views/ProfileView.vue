@@ -9,6 +9,7 @@ import { avatarName } from '@/tools/Comm';
 import MBlog from '@/components/MBlog.vue';
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/AuthStore';
+import { onBeforeRouteUpdate } from 'vue-router';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -65,13 +66,13 @@ onMounted(async () => {
     await fetchData();
 });
 
-watch(
-    () => route.params.uname,
-    async (newUname: string) => {
-        uname.value = newUname;
+onBeforeRouteUpdate(async (to, from) => {
+    // only fetch the user if the id changed as maybe only the query or the hash changed
+    if (to.params.uname !== from.params.uname) {
+        uname.value = String(to.params.uname);
         await fetchData();
     }
-);
+});
 </script>
 
 <template>
