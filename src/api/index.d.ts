@@ -30,7 +30,7 @@ export interface PaginationParams {
     page: number;
     limit: number;
     sortBy: string;
-    sortType: string;
+    sortType: 'asc' | 'desc';
 }
 
 export interface SignupRequest {

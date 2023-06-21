@@ -4,7 +4,6 @@ import router from '@/router';
 import { htmlToBase64 } from '@/tools/Comm';
 import { ref } from 'vue';
 import { useMessage } from 'naive-ui';
-
 const message = useMessage();
 
 const blogTitle = ref<string | null>(null);
@@ -45,7 +44,7 @@ async function submitCallback() {
 <template>
     <n-modal
         preset="dialog"
-        title="Write"
+        :title="$t('menu.write')"
         :positive-text="$t('action.submit')"
         :negative-text="$t('action.cancel')"
         @positive-click="submitCallback"

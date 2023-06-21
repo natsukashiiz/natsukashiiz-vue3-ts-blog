@@ -6,6 +6,7 @@ import { useLoadingBar, useMessage } from 'naive-ui';
 import { findById, update, publish } from '@/api/blog';
 import { useRoute } from 'vue-router';
 import router from '@/router';
+import { t } from '@/tools/Comm';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -26,11 +27,11 @@ async function handleSave() {
                 text.value = res.data.result.content;
             }
             loading.finish();
-            message.success('Saved');
+            message.success(t('common.saved'));
         }
         if (res.data && res.data.code) {
             loading.error();
-            message.error('Failed to save');
+            message.error(t('common.failed'));
         }
     } catch (e: unknown) {
         if (typeof e === 'string') {
@@ -116,8 +117,8 @@ onMounted(async () => {
             @update:value="handlePublish"
             style="margin-bottom: 10px"
         >
-            <template #checked>Publish</template>
-            <template #unchecked>Private</template>
+            <template #checked>{{ $t('common.publish') }}</template>
+            <template #unchecked>{{ $t('common.private') }}</template>
         </n-switch>
     </n-space>
     <MdEditor v-model="text" language="en-US" preview-theme="github" @save="handleSave" />

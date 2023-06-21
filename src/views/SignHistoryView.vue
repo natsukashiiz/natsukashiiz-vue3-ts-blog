@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, h } from 'vue';
 import type { DataTableColumns } from 'naive-ui';
-import { useLoadingBar, useMessage } from 'naive-ui';
+import { useLoadingBar, useMessage, NTag } from 'naive-ui';
 import type { SignHistoryResponse } from '@/api';
 import { signHistory } from '@/api/user';
 import { PaginationState } from '@/api/enum';
+import { t } from '@/tools/Comm';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -25,19 +26,35 @@ const pageCount = ref<number>(100);
 const columns: DataTableColumns<SignHistoryResponse> = [
     {
         title: '#',
-        key: 'id'
+        key: 'id',
+        render(rowData, rowIndex) {
+            return rowIndex + 1;
+        }
     },
     {
-        title: 'IP',
+        title: t('signHistory.ip'),
         key: 'ipv4'
     },
     {
-        title: 'Device',
-        key: 'device'
+        title: t('signHistory.device'),
+        key: 'device',
+        render(row) {
+            return h(
+                NTag,
+                {
+                    bordered: false,
+                    type: 'info'
+                },
+                { default: t(`device.${row.device}`) }
+            );
+        }
     },
     {
-        title: 'Time',
-        key: 'cdt'
+        title: t('signHistory.cdt'),
+        key: 'cdt',
+        render(rowData, rowIndex) {
+            return rowData.cdt;
+        }
     }
 ];
 
@@ -48,7 +65,7 @@ async function fetchData() {
             page: page.value,
             limit: pageSize.value,
             sortBy: PaginationState.SORT_BY.toString(),
-            sortType: PaginationState.SORT_TYPE.toString()
+            sortType: 'desc'
         });
         if (res.status === 200 && res.data.code === 0) {
             loading.finish();

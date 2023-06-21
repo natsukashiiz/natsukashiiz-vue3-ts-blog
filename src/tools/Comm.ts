@@ -29,7 +29,7 @@ function base64ToHtml(base64: string): string {
 }
 
 function t(str: string) {
-    return useI18n().t(str);
+    return () => useI18n().t(str);
 }
 
 export { textLimt, avatarName, renderIcon, htmlToBase64, base64ToHtml, i18n, t };

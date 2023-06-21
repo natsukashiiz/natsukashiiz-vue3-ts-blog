@@ -5,11 +5,12 @@ import type { BlogResponse } from '@/api';
 import { findByUser } from '@/api/blog';
 import { PaginationState } from '@/api/enum';
 import 'md-editor-v3/lib/preview.css';
-import { avatarName } from '@/tools/Comm';
-import MBlog from '@/components/MBlog.vue';
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/AuthStore';
 import { onBeforeRouteUpdate } from 'vue-router';
+
+import MBlog from '@/components/MBlog.vue';
+import MAvatar from '@/components/MAvatar.vue';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -76,23 +77,19 @@ onBeforeRouteUpdate(async (to, from) => {
 </script>
 
 <template>
-    <n-space justify="s"></n-space>
     <n-layout has-sider position="absolute" style="top: 70px; bottom: 70px">
         <n-layout-sider bordered content-style="padding: 50px;">
-            <n-space align="center">
-                <n-avatar round size="large">
-                    {{ avatarName(uname ?? '?') }}
-                </n-avatar>
-            </n-space>
-            Name: {{ uname }}
+            <MAvatar vertical :name="uname" />
         </n-layout-sider>
         <n-layout content-style="padding: 15px;">
             <n-space vertical>
                 <div v-for="data in dataList" :key="data.id">
                     <MBlog :data="data">
                         <template #header-extra v-if="authStore.payload?.uid == data.uid">
-                            <n-tag v-if="data.publish" type="success">Publish</n-tag>
-                            <n-tag v-else type="error">Private</n-tag>
+                            <n-tag v-if="data.publish" type="success">{{
+                                $t('common.publish')
+                            }}</n-tag>
+                            <n-tag v-else type="error">{{ $t('common.private') }}</n-tag>
                         </template>
                     </MBlog>
                 </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref, h, type Component } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { useLoadingBar, useMessage } from 'naive-ui';
 import { CreateOutline as PencilIcon } from '@vicons/ionicons5';
 import type { BlogResponse } from '@/api';

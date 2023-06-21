@@ -45,7 +45,7 @@ const menuOptions: MenuOption[] = [
                         name: 'home'
                     }
                 },
-                { default: () => t('menu.home') }
+                { default: t('menu.home') }
             ),
         key: 'Home',
         icon: renderIcon(HomeIcon)
@@ -62,13 +62,13 @@ const userMenu: MenuOption[] = [
                         path: `/@${authStore.payload?.name}`
                     }
                 },
-                { default: () => 'Profile' }
+                { default: t('menu.profile') }
             ),
         key: 'profile',
         icon: renderIcon(UserIcon)
     },
     {
-        label: 'Write',
+        label: t('menu.write'),
         key: 'createBlog',
         icon: renderIcon(CreateIcon),
         props: {
@@ -84,13 +84,13 @@ const userMenu: MenuOption[] = [
                         name: 'signHistory'
                     }
                 },
-                { default: () => 'Sign history' }
+                { default: t('menu.signHistory') }
             ),
         key: 'signHistory',
         icon: renderIcon(TimeIcon)
     },
     {
-        label: 'Logout',
+        label: t('menu.logout'),
         key: 'logout',
         icon: renderIcon(LogoutIcon),
         props: {

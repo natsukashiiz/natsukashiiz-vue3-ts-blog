@@ -4,7 +4,12 @@ export default {
             powerBy: 'Power by',
             email: 'Email',
             username: 'Username',
-            password: 'Password'
+            password: 'Password',
+            name: 'Name',
+            publish: 'Publish',
+            private: 'Private',
+            saved: 'Saved',
+            failed: 'Failed'
         },
         action: {
             submit: 'Submit',
@@ -13,7 +18,22 @@ export default {
         menu: {
             home: 'Home',
             signIn: 'Sign in',
-            signUp: 'Create a account'
+            signUp: 'Create a account',
+            profile: 'Profile',
+            write: 'Write',
+            signHistory: 'Sign history',
+            logout: 'Logout'
+        },
+        signHistory: {
+            ip: 'IP',
+            device: 'Device',
+            cdt: 'Time'
+        },
+        device: {
+            10: 'iPhone',
+            20: 'Android',
+            30: 'Windows',
+            100: 'Unknown'
         }
     },
     th: {
@@ -21,7 +41,12 @@ export default {
             powerBy: 'สร้างโดย',
             email: 'อีเมล',
             username: 'ชื่อผู้ใช้งาน',
-            password: 'รหัสผ่าน'
+            password: 'รหัสผ่าน',
+            name: 'ชื่อ',
+            publish: 'เผยแพร่',
+            private: 'ส่วนตัว',
+            saved: 'บันทึกแล้ว',
+            failed: 'ล้มเหลว'
         },
         action: {
             submit: 'บันทึก',
@@ -30,7 +55,22 @@ export default {
         menu: {
             home: 'หน้าแรก',
             signIn: 'เข้าสู่ระบบ',
-            signUp: 'ลงทะเบียน'
+            signUp: 'ลงทะเบียน',
+            profile: 'โปรไฟล์',
+            write: 'เขียน',
+            signHistory: 'ประวัติการเข้าสู่ระบบ',
+            logout: 'ออกจากระบบ'
+        },
+        signHistory: {
+            ip: 'เลขที่อยู่ไอพี',
+            device: 'อุปกรณ์',
+            cdt: 'เวลา'
+        },
+        device: {
+            10: 'ไอโฟน',
+            20: 'แอนดรอยด์',
+            30: 'วินโดว์',
+            100: 'ไม่รู้จัก'
         }
     },
     ja: {
@@ -38,16 +78,36 @@ export default {
             powerBy: '電源による',
             email: 'メール',
             username: 'ユーザー名',
-            password: 'パスワード'
+            password: 'パスワード',
+            name: '名前',
+            publish: '公開',
+            private: 'プライベート',
+            saved: '保存',
+            failed: '失敗 しました'
         },
         action: {
-            submit: '送信',
+            submit: 'セーブ',
             cancel: 'キャンセル'
         },
         menu: {
             home: 'ホームページ',
-            signIn: 'ログイン',
-            signUp: 'アカウントを作成する'
+            signIn: 'サインイン',
+            signUp: 'サインアップ',
+            profile: 'プロフィール',
+            write: '書く',
+            signHistory: 'ログイン履歴',
+            logout: 'ログアウト'
+        },
+        signHistory: {
+            ip: 'IPアドレス',
+            device: 'デバイス',
+            cdt: '時間'
+        },
+        device: {
+            10: 'アイフォン',
+            20: 'アンドロイド',
+            30: 'ウィンドウズ',
+            100: '不明'
         }
     }
 };
