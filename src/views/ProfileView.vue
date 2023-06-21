@@ -77,7 +77,7 @@ onBeforeRouteUpdate(async (to, from) => {
 </script>
 
 <template>
-    <n-layout has-sider position="absolute" style="top: 70px; bottom: 70px">
+    <n-layout has-sider position="absolute" style="top: 60px; bottom: 50px">
         <n-layout-sider bordered content-style="padding: 50px;">
             <MAvatar vertical :name="uname" />
         </n-layout-sider>

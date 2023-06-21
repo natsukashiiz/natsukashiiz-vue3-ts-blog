@@ -14,12 +14,13 @@ import {
     dateJaJP,
     NConfigProvider
 } from 'naive-ui';
+import { useThemeStore } from '@/stores/ThemeStore';
 
 import MTopbar from '@/components/MTopbar.vue';
 import MModalWrite from './components/MModalWrite.vue';
 import MFooter from './components/MFooter.vue';
 
-const themeRef = ref<'light' | 'dark'>('dark');
+const themeRef = ref<string>('light');
 const configProviderPropsRef = computed<ConfigProviderProps>(() => ({
     theme: themeRef.value === 'light' ? lightTheme : darkTheme
 }));
@@ -28,32 +29,38 @@ createDiscreteApi(['message', 'dialog', 'notification', 'loadingBar'], {
 });
 
 const showModalWrite = ref(false);
+const themeStore = useThemeStore();
 </script>
 
 <template>
     <n-config-provider
+        :theme="themeStore.theme === 'light' ? lightTheme : darkTheme"
         :locale="$i18n.locale == 'en' ? enUS : $i18n.locale == 'th' ? thTH : jaJP"
         :date-locale="$i18n.locale == 'en' ? dateEnUS : $i18n.locale == 'th' ? dateThTH : dateJaJP"
     >
         <n-loading-bar-provider>
             <n-message-provider>
-                <!-- container -->
-                <div style="height: 100vh; position: relative">
-                    <!-- modal write -->
-                    <MModalWrite v-model:show="showModalWrite" />
-                    <!-- main -->
-                    <n-layout position="absolute">
-                        <!-- header -->
-                        <n-layout-header style="height: 60px; padding: 12px" bordered>
-                            <!-- topbar -->
-                            <MTopbar @open-modal="(open) => (showModalWrite = open)" />
-                        </n-layout-header>
-                        <!-- content -->
-                        <RouterView />
-                        <!-- footer -->
-                        <MFooter />
-                    </n-layout>
-                </div>
+                <n-notification-provider>
+                    <n-dialog-provider>
+                        <!-- container -->
+                        <div style="height: 100vh; position: relative">
+                            <!-- modal write -->
+                            <MModalWrite v-model:show="showModalWrite" />
+                            <!-- main -->
+                            <n-layout position="absolute">
+                                <!-- header -->
+                                <n-layout-header style="height: 60px; padding: 12px" bordered>
+                                    <!-- topbar -->
+                                    <MTopbar @open-modal="(open) => (showModalWrite = open)" />
+                                </n-layout-header>
+                                <!-- content -->
+                                <RouterView />
+                                <!-- footer -->
+                                <MFooter />
+                            </n-layout>
+                        </div>
+                    </n-dialog-provider>
+                </n-notification-provider>
             </n-message-provider>
         </n-loading-bar-provider>
     </n-config-provider>

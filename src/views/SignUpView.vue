@@ -72,7 +72,7 @@ const rules: FormRules = {
 </script>
 
 <template>
-    <n-space justify="center" style="margin-top: 10vh">
+    <n-space justify="center" style="margin-top: 10%">
         <n-card :title="$t('menu.signUp')" style="width: 500px">
             <n-form ref="formRef" :model="modelRef" :rules="rules">
                 <n-form-item path="email" :label="$t('common.email')">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { h } from 'vue';
+import { h, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import type { MenuOption } from 'naive-ui';
 import {
@@ -10,6 +10,7 @@ import {
     TimeOutline as TimeIcon
 } from '@vicons/ionicons5';
 import { useAuthStore } from '@/stores/AuthStore';
+import { useThemeStore } from '@/stores/ThemeStore';
 import { avatarName, renderIcon, t } from '@/tools/Comm';
 import type { Option } from 'naive-ui/es/legacy-transfer/src/interface';
 
@@ -19,6 +20,7 @@ const emit = defineEmits<{
 
 // common
 const authStore = useAuthStore();
+const themeStore = useThemeStore();
 
 const langOptions: Option[] = [
     {
@@ -94,14 +96,10 @@ const userMenu: MenuOption[] = [
         key: 'logout',
         icon: renderIcon(LogoutIcon),
         props: {
-            onClick: () => handleLogout()
+            onClick: () => authStore.logout()
         }
     }
 ];
-
-function handleLogout() {
-    authStore.logout();
-}
 </script>
 
 <template>
@@ -115,6 +113,9 @@ function handleLogout() {
                 :options="langOptions"
                 style="width: 100px"
             />
+            <n-button @click="themeStore.changeTheme()" style="text-transform: capitalize">{{
+                themeStore.theme
+            }}</n-button>
             <!-- show if not login -->
             <div v-if="!authStore.isAuthenticated()">
                 <RouterLink :to="{ name: 'signUp' }" style="margin-right: 10px">

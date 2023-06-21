@@ -7,6 +7,7 @@ import { findById, update, publish } from '@/api/blog';
 import { useRoute } from 'vue-router';
 import router from '@/router';
 import { t } from '@/tools/Comm';
+import { useThemeStore } from '@/stores/ThemeStore';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -121,5 +122,13 @@ onMounted(async () => {
             <template #unchecked>{{ $t('common.private') }}</template>
         </n-switch>
     </n-space>
-    <MdEditor v-model="text" language="en-US" preview-theme="github" @save="handleSave" />
+    <MdEditor
+        v-model="text"
+        :theme="useThemeStore().theme"
+        no-upload-img
+        auto-detect-code
+        language="en-US"
+        preview-theme="github"
+        @save="handleSave"
+    />
 </template>

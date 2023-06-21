@@ -12,6 +12,7 @@ import { useAuthStore } from '@/stores/AuthStore';
 import { avatarName } from '@/tools/Comm';
 import dateFormat from 'dateformat';
 import { renderIcon } from '@/tools/Comm';
+import { useThemeStore } from '@/stores/ThemeStore';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -88,6 +89,7 @@ onMounted(async () => {
             <MdPreview
                 editor-id="preview-only"
                 :model-value="data.content"
+                :theme="useThemeStore().theme"
                 language="en-US"
                 preview-theme="github"
             />
