@@ -22,9 +22,9 @@ function htmlToBase64(html: string): string {
 }
 
 function base64ToHtml(base64: string): string {
-    var decodedData = atob(base64);
-    var decoder = new TextDecoder();
-    var html = decoder.decode(new Uint8Array([...decodedData].map((char) => char.charCodeAt(0))));
+    const decodedData = atob(base64);
+    const decoder = new TextDecoder();
+    const html = decoder.decode(new Uint8Array([...decodedData].map((char) => char.charCodeAt(0))));
     return html;
 }
 
