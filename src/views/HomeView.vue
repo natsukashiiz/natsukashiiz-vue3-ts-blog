@@ -7,6 +7,8 @@ import { PaginationState } from '@/api/enum';
 import 'md-editor-v3/lib/preview.css';
 import MBlog from '@/components/MBlog.vue';
 import MAvatar from '@/components/MAvatar.vue';
+import router from '@/router';
+import { AxiosError } from 'axios';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -38,7 +40,10 @@ async function fetchData() {
     } catch (e: unknown) {
         if (typeof e === 'string') {
             message.error(e);
-        } else if (e instanceof Error) {
+        } else if (e instanceof AxiosError) {
+            if (e.code == 'ERR_NETWORK') {
+                router.push('/server-error');
+            }
             e.message; // works, `e` narrowed to Error
             message.error(e.message);
         }

@@ -13,9 +13,7 @@ export const useThemeStore = defineStore('theme', () => {
     }
 
     function changeTheme() {
-        console.log('1: ' + theme.value);
         theme.value = theme.value === 'light' ? 'dark' : 'light';
-        console.log('2: ' + theme.value);
         localStorage.setItem(prefix, theme.value);
     }
 

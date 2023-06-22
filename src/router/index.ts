@@ -63,6 +63,15 @@ const router = createRouter({
                     component: () => import('@/views/SignHistoryView.vue')
                 }
             ]
+        },
+        {
+            path: '/server-error',
+            name: 'serverError',
+            component: () => import('@/views/errors/ServerErrorView.vue')
+        },
+        {
+            path: '/:pathMatch(.*)*',
+            component: () => import('@/views/errors/NotFoundView.vue')
         }
     ]
 });
