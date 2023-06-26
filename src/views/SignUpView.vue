@@ -6,23 +6,33 @@ import { useMessage, useLoadingBar } from 'naive-ui';
 import { useRouter } from 'vue-router';
 import type { SignupRequest } from '@/api';
 import { signUp } from '@/api/auth';
+import { t } from '@/tools/Comm';
 
 const router = useRouter();
 const message = useMessage();
 const loading = useLoadingBar();
 
+interface REGISTER extends SignupRequest {
+    rePassword: string | null;
+}
+
 // variable
 const formRef = ref<FormInst | null>(null);
-const modelRef = ref<SignupRequest>({
+const modelRef = ref<REGISTER>({
     email: null,
     username: null,
-    password: null
+    password: null,
+    rePassword: null
 });
 
 // functions
 function handleSubmit(e: MouseEvent) {
     e.preventDefault();
     formRef.value?.validate(async (errors: Array<FormValidationError> | undefined) => {
+        if (modelRef.value.password != modelRef.value.rePassword) {
+            message.error(t('common.passwordNotMatch'));
+            return;
+        }
         if (!errors) {
             loading.start();
             try {
@@ -67,6 +77,12 @@ const rules: FormRules = {
             required: true,
             message: 'Password is required'
         }
+    ],
+    rePassword: [
+        {
+            required: true,
+            message: 'Re Enter Password is required'
+        }
     ]
 };
 </script>
@@ -84,6 +100,13 @@ const rules: FormRules = {
                 <n-form-item path="password" :label="$t('common.password')">
                     <n-input
                         v-model:value="modelRef.password"
+                        type="password"
+                        @keydown.enter.prevent
+                    />
+                </n-form-item>
+                <n-form-item path="rePassword" :label="$t('common.rePassword')">
+                    <n-input
+                        v-model:value="modelRef.rePassword"
                         type="password"
                         @keydown.enter.prevent
                     />

@@ -5,11 +5,14 @@ export default {
             email: 'Email',
             username: 'Username',
             password: 'Password',
+            rePassword: 'Re Enter Password',
             name: 'Name',
             publish: 'Publish',
             private: 'Private',
             saved: 'Saved',
-            failed: 'Failed'
+            failed: 'Failed',
+            passwordNotMatch: 'Password not match',
+            required: 'is required'
         },
         action: {
             submit: 'Submit',
@@ -42,11 +45,14 @@ export default {
             email: 'อีเมล',
             username: 'ชื่อผู้ใช้งาน',
             password: 'รหัสผ่าน',
+            rePassword: 'ป้อนรหัสผ่านอีกครั้ง',
             name: 'ชื่อ',
             publish: 'เผยแพร่',
             private: 'ส่วนตัว',
             saved: 'บันทึกแล้ว',
-            failed: 'ล้มเหลว'
+            failed: 'ล้มเหลว',
+            passwordNotMatch: 'รหัสผ่านไม่ตรงกัน',
+            required: 'ต้องระบุ'
         },
         action: {
             submit: 'บันทึก',
@@ -79,11 +85,14 @@ export default {
             email: 'メール',
             username: 'ユーザー名',
             password: 'パスワード',
+            rePassword: 'パスワード再入力',
             name: '名前',
             publish: '公開',
             private: 'プライベート',
             saved: '保存',
-            failed: '失敗 しました'
+            failed: '失敗 しました',
+            passwordNotMatch: 'パスワードが一致しません',
+            required: '必要とされている'
         },
         action: {
             submit: 'セーブ',
