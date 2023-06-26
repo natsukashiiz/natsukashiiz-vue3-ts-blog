@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { h, ref } from 'vue';
+import { h, ref, watch } from 'vue';
 import { RouterLink, onBeforeRouteUpdate } from 'vue-router';
 import type { MenuOption } from 'naive-ui';
 import {
@@ -205,6 +205,13 @@ const mobileMenuOptions: MenuOption[] = [
 function saveLangStore(value: string) {
     localStorage.setItem('lang', value);
 }
+
+watch(
+    () => authStore.isAuthenticated(),
+    (x) => {
+        console.log({ x });
+    }
+);
 </script>
 
 <template>
