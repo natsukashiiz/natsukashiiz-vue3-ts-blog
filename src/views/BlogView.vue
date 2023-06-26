@@ -73,7 +73,7 @@ onMounted(async () => {
                         <n-space vertical>
                             <n-h6
                                 >{{ data.uname }} <br />
-                                <n-time :time="data.cdt" time-zone="UTC" />
+                                <n-time :time="new Date(data.cdt)" format="MMM dd, yyyy" />
                             </n-h6>
                         </n-space>
                     </n-space>
