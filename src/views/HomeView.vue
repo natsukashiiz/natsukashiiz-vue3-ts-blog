@@ -26,7 +26,7 @@ async function fetchData() {
             page: page.value,
             limit: pageSize.value,
             sortBy: PaginationState.SORT_BY.toString(),
-            sortType: PaginationState.SORT_TYPE.toString()
+            sortType: 'desc'
         });
         if (res.status === 200 && res.data.code === 0) {
             loading.finish();
@@ -69,11 +69,3 @@ onMounted(async () => {
         </div>
     </n-space>
 </template>
-
-<style scoped>
-.n-card {
-    max-width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-}
-</style>

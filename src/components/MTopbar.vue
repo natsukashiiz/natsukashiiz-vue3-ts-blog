@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { h, ref } from 'vue';
+import { h } from 'vue';
 import { RouterLink } from 'vue-router';
 import type { MenuOption } from 'naive-ui';
 import {
@@ -74,7 +74,7 @@ const userMenu: MenuOption[] = [
         key: 'createBlog',
         icon: renderIcon(CreateIcon),
         props: {
-            onClick: () => emit('open-modal', true)
+            onClick: () => emit('openModal', true)
         }
     },
     {
@@ -100,10 +100,14 @@ const userMenu: MenuOption[] = [
         }
     }
 ];
+
+function saveLangStore(value: string) {
+    localStorage.setItem('lang', value);
+}
 </script>
 
 <template>
-    <n-space justify="space-between">
+    <n-space justify="space-around">
         <n-menu mode="horizontal" :options="menuOptions" />
         <n-space>
             <!-- select lang -->
@@ -111,6 +115,7 @@ const userMenu: MenuOption[] = [
                 :bordered="false"
                 v-model:value="$i18n.locale"
                 :options="langOptions"
+                @update:value="saveLangStore"
                 style="width: 100px"
             />
             <n-button @click="themeStore.changeTheme()" style="text-transform: capitalize">{{

@@ -13,7 +13,9 @@ defineProps<{
         <n-avatar round>
             {{ avatarName(name || '?') }}
         </n-avatar>
-        <div v-if="!showTitile">{{ name }}</div>
+        <div v-if="!showTitile">
+            <n-text strong> {{ name }} </n-text>
+        </div>
         <div v-if="showTitile">{{ uid ? 'UID' + ': ' : '' }} {{ uid }}</div>
         <div v-if="showTitile">
             {{ name ? $t('common.name') + ': ' + name : '' }}

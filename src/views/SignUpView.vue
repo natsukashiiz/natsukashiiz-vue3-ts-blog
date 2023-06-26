@@ -72,8 +72,8 @@ const rules: FormRules = {
 </script>
 
 <template>
-    <n-space justify="center" style="margin-top: 10%">
-        <n-card :title="$t('menu.signUp')" style="width: 500px">
+    <n-space justify="center" style="margin-top: 20vh">
+        <n-card :title="$t('menu.signUp')" style="width: 1000px">
             <n-form ref="formRef" :model="modelRef" :rules="rules">
                 <n-form-item path="email" :label="$t('common.email')">
                     <n-input v-model:value="modelRef.email" @keydown.enter.prevent />

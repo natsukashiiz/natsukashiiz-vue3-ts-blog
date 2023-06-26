@@ -45,7 +45,7 @@ const router = createRouter({
                     component: () => import('@/views/BlogView.vue')
                 },
                 {
-                    path: 'blog/:id/editor',
+                    path: 'blog/:id/write',
                     name: 'blogEditor',
                     component: () => import('@/views/EditorBlogView.vue'),
                     beforeEnter: isAuth

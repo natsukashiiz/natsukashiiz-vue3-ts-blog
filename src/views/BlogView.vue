@@ -82,7 +82,7 @@ onMounted(async () => {
                         size="small"
                         ghost
                         :render-icon="renderIcon(PencilIcon)"
-                        @click="() => router.push(`/blog/${data.id}/editor`)"
+                        @click="() => router.push(`/blog/${data.id}/write`)"
                     />
                 </h1>
             </template>
@@ -96,11 +96,3 @@ onMounted(async () => {
         </n-card>
     </n-space>
 </template>
-
-<style scoped>
-.n-card {
-    max-width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-}
-</style>

@@ -15,7 +15,7 @@ defineProps<{
         <n-space justify="space-between">
             <div>
                 <slot name="header"></slot>
-                {{ dateFormat(data.cdt, 'fullDate') }}
+                <n-time :time="data.cdt" time-zone="UTC" />
             </div>
             <div>
                 <slot name="header-extra"></slot>
@@ -23,7 +23,11 @@ defineProps<{
         </n-space>
         <n-divider />
         <router-link :to="`/blog/${data.id}`">
-            <h1>{{ data.title }}</h1>
+            <n-h1>
+                <n-text>
+                    {{ data.title }}
+                </n-text>
+            </n-h1>
             <MdPreview
                 editor-id="preview-only"
                 :theme="useThemeStore().theme"

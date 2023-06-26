@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, h } from 'vue';
-import type { DataTableColumns } from 'naive-ui';
-import { useLoadingBar, useMessage, NTag } from 'naive-ui';
+import { useLoadingBar, useMessage, NTag, NTime, type DataTableColumns } from 'naive-ui';
 import type { SignHistoryResponse } from '@/api';
 import { signHistory } from '@/api/user';
 import { PaginationState } from '@/api/enum';
@@ -52,8 +51,11 @@ const columns: DataTableColumns<SignHistoryResponse> = [
     {
         title: t('signHistory.cdt'),
         key: 'cdt',
-        render(rowData, rowIndex) {
-            return rowData.cdt;
+        render(row) {
+            return h(NTime, {
+                time: row.cdt,
+                timeZone: 'UTC'
+            });
         }
     }
 ];

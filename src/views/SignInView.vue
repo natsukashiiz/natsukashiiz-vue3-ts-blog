@@ -70,8 +70,8 @@ const rules: FormRules = {
 </script>
 
 <template>
-    <n-space justify="center" style="margin-top: 10%">
-        <n-card :title="$t('menu.signIn')" style="width: 500px">
+    <n-space justify="center" style="margin-top: 20vh">
+        <n-card :title="$t('menu.signIn')" style="width: 1000px">
             <n-form ref="formRef" :model="modelRef" :rules="rules">
                 <n-form-item path="username" :label="$t('common.username')">
                     <n-input v-model:value="modelRef.username" @keydown.enter.prevent />
@@ -96,5 +96,3 @@ const rules: FormRules = {
         </n-card>
     </n-space>
 </template>
-
-<style scoped></style>

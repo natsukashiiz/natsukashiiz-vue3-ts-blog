@@ -19,7 +19,7 @@ async function submitCallback() {
             });
             if (res.status === 200 && res.data.code === 0) {
                 if (res.data.result) {
-                    await router.push(`/blog/${res.data.result.id}/editor`);
+                    await router.push(`/blog/${res.data.result.id}/write`);
                     return true;
                 } else {
                     return false;
@@ -50,7 +50,7 @@ async function submitCallback() {
         @positive-click="submitCallback"
     >
         <n-form inline>
-            <n-input v-model:value="blogTitle" placeholder="Enter title" />
+            <n-input v-model:value="blogTitle" />
         </n-form>
     </n-modal>
 </template>

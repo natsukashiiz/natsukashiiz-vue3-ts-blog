@@ -1,1 +1,17 @@
 @import './base.css';
+
+a {
+    text-decoration: none;
+}
+
+.n-card {
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media only screen and (max-width: 600px) {
+    .n-card {
+        max-width: 98%;
+    }
+}

@@ -32,4 +32,4 @@ function t(str: string) {
     return () => useI18n().t(str);
 }
 
-export { textLimt, avatarName, renderIcon, htmlToBase64, base64ToHtml, i18n, t };
+export { textLimt, avatarName, renderIcon, htmlToBase64, base64ToHtml, t, i18n };
