@@ -42,23 +42,20 @@ const themeStore = useThemeStore();
             <n-message-provider>
                 <n-notification-provider>
                     <n-dialog-provider>
-                        <!-- container -->
-                        <div style="height: 100vh; position: relative">
-                            <!-- modal write -->
-                            <MModalWrite v-model:show="showModalWrite" />
-                            <!-- main -->
-                            <n-layout position="absolute">
-                                <!-- header -->
-                                <n-layout-header style="height: 60px; padding: 12px" bordered>
-                                    <!-- topbar -->
-                                    <MTopbar @open-modal="(open) => (showModalWrite = open)" />
-                                </n-layout-header>
-                                <!-- content -->
-                                <RouterView />
-                                <!-- footer -->
-                                <MFooter />
-                            </n-layout>
-                        </div>
+                        <!-- modal write -->
+                        <MModalWrite v-model:show="showModalWrite" />
+                        <!-- main -->
+                        <n-layout position="absolute">
+                            <!-- header -->
+                            <n-layout-header style="height: 60px; padding: 12px" bordered>
+                                <!-- topbar -->
+                                <MTopbar @open-modal="(open) => (showModalWrite = open)" />
+                            </n-layout-header>
+                            <!-- content -->
+                            <RouterView />
+                            <!-- footer -->
+                            <MFooter />
+                        </n-layout>
                     </n-dialog-provider>
                 </n-notification-provider>
             </n-message-provider>

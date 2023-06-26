@@ -4,10 +4,11 @@ import { useLoadingBar, useMessage, NTag, NTime, type DataTableColumns } from 'n
 import type { SignHistoryResponse } from '@/api';
 import { signHistory } from '@/api/user';
 import { PaginationState } from '@/api/enum';
-import { t } from '@/tools/Comm';
+import { t, useIsMobile } from '@/tools/Comm';
 
 const message = useMessage();
 const loading = useLoadingBar();
+const isMobile = useIsMobile();
 
 const signHistoryList = ref<Array<SignHistoryResponse>>([]);
 const handlePageChange = async (curPage: number) => {
@@ -53,8 +54,8 @@ const columns: DataTableColumns<SignHistoryResponse> = [
         key: 'cdt',
         render(row) {
             return h(NTime, {
-                time: row.cdt,
-                timeZone: 'UTC'
+                time: new Date(row.cdt),
+                format: 'MMM dd, yyyy'
             });
         }
     }
@@ -65,7 +66,7 @@ async function fetchData() {
     try {
         const res = await signHistory({
             page: page.value,
-            limit: pageSize.value,
+            limit: isMobile ? 5 : pageSize.value,
             sortBy: PaginationState.SORT_BY.toString(),
             sortType: 'desc'
         });

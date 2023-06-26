@@ -46,7 +46,8 @@ function handleSignIn(e: MouseEvent) {
                 const res = await authStore.login(signInForm.value);
                 if (res.status === 200 && res.data.code === 0) {
                     loading.finish();
-                    await router.push({ name: 'home' });
+                    // await router.push({ name: 'home' });
+                    window.location.href = '/';
                 }
                 if (res.data && res.data.code && res.data.text) {
                     loading.error();

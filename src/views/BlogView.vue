@@ -9,7 +9,7 @@ import 'md-editor-v3/lib/preview.css';
 import { useRoute } from 'vue-router';
 import router from '@/router';
 import { useAuthStore } from '@/stores/AuthStore';
-import { avatarName } from '@/tools/Comm';
+import { avatarName, useIsMobile } from '@/tools/Comm';
 import { renderIcon } from '@/tools/Comm';
 import { useThemeStore } from '@/stores/ThemeStore';
 
@@ -17,6 +17,7 @@ const message = useMessage();
 const loading = useLoadingBar();
 const route = useRoute();
 const authStore = useAuthStore();
+const isMobile = useIsMobile();
 
 const blogId = ref<number>(0);
 const data = reactive<BlogResponse>({
@@ -82,6 +83,7 @@ onMounted(async () => {
                     {{ data.title }}
                     <n-button
                         v-if="data.uid == authStore.payload?.uid"
+                        :disabled="isMobile"
                         type="primary"
                         size="small"
                         ghost

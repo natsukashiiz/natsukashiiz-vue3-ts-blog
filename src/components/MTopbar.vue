@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { h, ref, watch } from 'vue';
-import { RouterLink, onBeforeRouteUpdate } from 'vue-router';
+import { h, ref } from 'vue';
+import { RouterLink } from 'vue-router';
 import type { MenuOption } from 'naive-ui';
 import {
     CreateOutline as CreateIcon,
@@ -8,11 +8,14 @@ import {
     LogOutOutline as LogoutIcon,
     PersonCircleOutline as UserIcon,
     TimeOutline as TimeIcon,
-    MenuOutline as MenuIcon
+    MenuOutline as MenuIcon,
+    SunnyOutline as LightIcon,
+    MoonOutline as DarkIcon,
+    LanguageOutline as LangIcon
 } from '@vicons/ionicons5';
 import { useAuthStore } from '@/stores/AuthStore';
 import { useThemeStore } from '@/stores/ThemeStore';
-import { avatarName, renderIcon, t, useIsMobile, useIsTablet } from '@/tools/Comm';
+import { avatarName, renderIcon, t, useIsMobile } from '@/tools/Comm';
 import type { Option } from 'naive-ui/es/legacy-transfer/src/interface';
 
 const emit = defineEmits<{
@@ -23,7 +26,6 @@ const emit = defineEmits<{
 const authStore = useAuthStore();
 const themeStore = useThemeStore();
 const isMobile = useIsMobile();
-const isTablet = useIsTablet();
 const activeKey = ref<string | null>(null);
 
 const langOptions: Option[] = [
@@ -107,31 +109,66 @@ const userMenu: MenuOption[] = [
 
 const mobileMenuOptions: MenuOption[] = [
     {
-        label: 'Lang',
+        label: t('menu.language'),
         key: 'Lang',
-        icon: renderIcon(HomeIcon),
+        icon: renderIcon(LangIcon),
         children: [
             {
                 label: 'English',
-                value: 'en'
+                value: 'en',
+                props: {
+                    onClick: () => {
+                        saveLangStore('en');
+                        window.location.reload();
+                    }
+                }
             },
             {
                 label: 'ไทย',
-                value: 'th'
+                value: 'th',
+                props: {
+                    onClick: () => {
+                        saveLangStore('th');
+                        window.location.reload();
+                    }
+                }
             },
             {
                 label: '日本語',
-                value: 'ja'
+                value: 'ja',
+                props: {
+                    onClick: () => {
+                        saveLangStore('ja');
+                        window.location.reload();
+                    }
+                }
             }
         ]
     },
     {
-        label: themeStore.theme.toUpperCase(),
+        label: t('menu.theme'),
         key: 'Theme',
-        icon: renderIcon(HomeIcon),
-        props: {
-            onClick: () => themeStore.changeTheme()
-        }
+        icon: renderIcon(themeStore.theme == 'light' ? LightIcon : DarkIcon),
+        children: [
+            {
+                label: t('theme.light'),
+                props: {
+                    onClick: () => {
+                        themeStore.saveTheme('light');
+                        window.location.reload();
+                    }
+                }
+            },
+            {
+                label: t('theme.dark'),
+                props: {
+                    onClick: () => {
+                        themeStore.saveTheme('dark');
+                        window.location.reload();
+                    }
+                }
+            }
+        ]
     },
     {
         label: () =>
@@ -149,7 +186,7 @@ const mobileMenuOptions: MenuOption[] = [
         show: !authStore.isAuthenticated()
     },
     {
-        label: 'Profile',
+        label: t('menu.profile'),
         key: 'Profile',
         icon: renderIcon(UserIcon),
         show: authStore.isAuthenticated(),
@@ -172,9 +209,7 @@ const mobileMenuOptions: MenuOption[] = [
                 label: t('menu.write'),
                 key: 'createBlog',
                 icon: renderIcon(CreateIcon),
-                props: {
-                    onClick: () => emit('openModal', true)
-                }
+                disabled: true
             },
             {
                 label: () =>
@@ -205,13 +240,6 @@ const mobileMenuOptions: MenuOption[] = [
 function saveLangStore(value: string) {
     localStorage.setItem('lang', value);
 }
-
-watch(
-    () => authStore.isAuthenticated(),
-    (x) => {
-        console.log({ x });
-    }
-);
 </script>
 
 <template>
@@ -227,7 +255,7 @@ watch(
                 style="width: 100px"
             />
             <n-button @click="themeStore.changeTheme()" style="text-transform: capitalize">{{
-                themeStore.theme
+                $t('theme.' + themeStore.theme)
             }}</n-button>
             <!-- show if not login -->
             <div v-if="!authStore.isAuthenticated()">
@@ -243,7 +271,11 @@ watch(
             </n-dropdown>
         </n-space>
         <n-dropdown v-else :options="mobileMenuOptions">
-            <n-icon size="large" style="margin-top: 5px"><MenuIcon /></n-icon>
+            <n-button text>
+                <n-icon size="large" style="margin-top: 5px; margin-right: 15px"
+                    ><MenuIcon
+                /></n-icon>
+            </n-button>
         </n-dropdown>
     </n-space>
 </template>

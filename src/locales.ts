@@ -26,7 +26,13 @@ export default {
             profile: 'Profile',
             write: 'Write',
             signHistory: 'Sign history',
-            logout: 'Logout'
+            logout: 'Logout',
+            language: 'Language',
+            theme: 'Theme'
+        },
+        theme: {
+            light: 'Light',
+            dark: 'Dark'
         },
         signHistory: {
             ip: 'IP',
@@ -67,7 +73,13 @@ export default {
             profile: 'โปรไฟล์',
             write: 'เขียน',
             signHistory: 'ประวัติการเข้าสู่ระบบ',
-            logout: 'ออกจากระบบ'
+            logout: 'ออกจากระบบ',
+            language: 'ภาษา',
+            theme: 'ธีม'
+        },
+        theme: {
+            light: 'สว่าง',
+            dark: 'มืด'
         },
         signHistory: {
             ip: 'เลขที่อยู่ไอพี',
@@ -108,7 +120,13 @@ export default {
             profile: 'プロフィール',
             write: '書く',
             signHistory: 'ログイン履歴',
-            logout: 'ログアウト'
+            logout: 'ログアウト',
+            language: '言語',
+            theme: 'テーマ'
+        },
+        theme: {
+            light: 'ライト',
+            dark: '暗い'
         },
         signHistory: {
             ip: 'IPアドレス',

@@ -14,7 +14,7 @@ defineProps<{
         <n-space justify="space-between">
             <div>
                 <slot name="header"></slot>
-                <n-time :time="data.cdt" time-zone="UTC" />
+                <n-time :time="new Date(data.cdt)" format="MMM dd, yyyy" />
             </div>
             <div>
                 <slot name="header-extra"></slot>

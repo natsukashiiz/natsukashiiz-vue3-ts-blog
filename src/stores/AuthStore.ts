@@ -73,7 +73,7 @@ export const useAuthStore = defineStore('auth', () => {
         token.value = null;
         refresh.value = null;
         payload.value = null;
-        router.push({ name: 'signIn' });
+        window.location.href = '/sign-in';
     }
 
     loadAuth();
