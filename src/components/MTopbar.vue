@@ -11,7 +11,8 @@ import {
     MenuOutline as MenuIcon,
     SunnyOutline as LightIcon,
     MoonOutline as DarkIcon,
-    LanguageOutline as LangIcon
+    LanguageOutline as LangIcon,
+    LogInOutline as LoginIcon
 } from '@vicons/ionicons5';
 import { useAuthStore } from '@/stores/AuthStore';
 import { useThemeStore } from '@/stores/ThemeStore';
@@ -182,7 +183,7 @@ const mobileMenuOptions: MenuOption[] = [
                 { default: t('menu.signIn') }
             ),
         key: 'singIn',
-        icon: renderIcon(UserIcon),
+        icon: renderIcon(LoginIcon),
         show: !authStore.isAuthenticated()
     },
     {
@@ -271,10 +272,8 @@ function saveLangStore(value: string) {
             </n-dropdown>
         </n-space>
         <n-dropdown v-else :options="mobileMenuOptions">
-            <n-button text>
-                <n-icon size="large" style="margin-top: 5px; margin-right: 15px"
-                    ><MenuIcon
-                /></n-icon>
+            <n-button text style="margin-top: 11px; margin-right: 20px">
+                <n-icon size="large"><MenuIcon /></n-icon>
             </n-button>
         </n-dropdown>
     </n-space>

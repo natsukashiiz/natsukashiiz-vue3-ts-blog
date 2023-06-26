@@ -3,16 +3,15 @@
 import { ref } from 'vue';
 import type { FormInst, FormRules, FormValidationError } from 'naive-ui';
 import { useLoadingBar, useMessage, type TabsInst } from 'naive-ui';
-import { useRouter } from 'vue-router';
 import type { SigninRequest, SignupRequest } from '@/api';
 import { useAuthStore } from '@/stores/AuthStore';
 import { signUp } from '@/api/auth';
-import { t } from '@/tools/Comm';
+import { t, useIsMobile } from '@/tools/Comm';
 
-const router = useRouter();
 const authStore = useAuthStore();
 const message = useMessage();
 const loading = useLoadingBar();
+const isMobile = useIsMobile();
 
 // variable
 const tabsInstRef = ref<TabsInst | null>(null);
@@ -155,7 +154,7 @@ const signUpRules: FormRules = {
 </script>
 
 <template>
-    <n-space justify="center" style="margin-top: 10vh">
+    <n-space justify="center" :style="{ 'margin-top': isMobile ? '5vh' : '10vh' }">
         <n-card style="width: 1000px">
             <n-tabs
                 ref="tabsInstRef"
