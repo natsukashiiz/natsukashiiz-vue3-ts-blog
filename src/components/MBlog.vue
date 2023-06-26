@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { BlogResponse } from '@/api';
 import { textLimt } from '@/tools/Comm';
-import dateFormat from 'dateformat';
 import { MdPreview } from 'md-editor-v3';
 import { useThemeStore } from '@/stores/ThemeStore';
 
@@ -24,16 +23,16 @@ defineProps<{
         <n-divider />
         <router-link :to="`/blog/${data.id}`">
             <n-h1>
-                <n-text>
+                <n-text underline>
                     {{ data.title }}
                 </n-text>
             </n-h1>
-            <MdPreview
-                editor-id="preview-only"
-                :theme="useThemeStore().theme"
-                :model-value="textLimt(data.content, 200)"
-            />
         </router-link>
+        <MdPreview
+            editor-id="preview-only"
+            :theme="useThemeStore().theme"
+            :model-value="textLimt(data.content, 200)"
+        />
     </n-card>
 </template>
 

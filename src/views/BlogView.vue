@@ -10,7 +10,6 @@ import { useRoute } from 'vue-router';
 import router from '@/router';
 import { useAuthStore } from '@/stores/AuthStore';
 import { avatarName } from '@/tools/Comm';
-import dateFormat from 'dateformat';
 import { renderIcon } from '@/tools/Comm';
 import { useThemeStore } from '@/stores/ThemeStore';
 
@@ -65,16 +64,21 @@ onMounted(async () => {
     <n-space vertical>
         <n-card :bordered="false">
             <template #header>
-                <n-space>
-                    <n-avatar round>
-                        {{ avatarName(data.uname) }}
-                    </n-avatar>
-                    <n-space vertical>
-                        {{ data.uname }} |
-                        {{ dateFormat(data.cdt, 'fullDate') }}
+                <router-link :to="{ path: `/@${data.uname}` }">
+                    <n-space align="center">
+                        <n-avatar round size="large">
+                            {{ avatarName(data.uname) }}
+                        </n-avatar>
+                        <n-space vertical>
+                            <n-h6
+                                >{{ data.uname }} <br />
+                                <n-time :time="data.cdt" time-zone="UTC" />
+                            </n-h6>
+                        </n-space>
                     </n-space>
-                </n-space>
-                <h1>
+                </router-link>
+                <n-divider />
+                <n-h1>
                     {{ data.title }}
                     <n-button
                         v-if="data.uid == authStore.payload?.uid"
@@ -84,7 +88,7 @@ onMounted(async () => {
                         :render-icon="renderIcon(PencilIcon)"
                         @click="() => router.push(`/blog/${data.id}/write`)"
                     />
-                </h1>
+                </n-h1>
             </template>
             <MdPreview
                 editor-id="preview-only"

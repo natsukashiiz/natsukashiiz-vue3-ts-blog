@@ -12,7 +12,8 @@ export default {
             saved: 'Saved',
             failed: 'Failed',
             passwordNotMatch: 'Password not match',
-            required: 'is required'
+            required: 'is required',
+            success: 'Successful'
         },
         action: {
             submit: 'Submit',
@@ -52,7 +53,8 @@ export default {
             saved: 'บันทึกแล้ว',
             failed: 'ล้มเหลว',
             passwordNotMatch: 'รหัสผ่านไม่ตรงกัน',
-            required: 'ต้องระบุ'
+            required: 'ต้องระบุ',
+            success: 'สำเร็จ'
         },
         action: {
             submit: 'บันทึก',
@@ -92,7 +94,8 @@ export default {
             saved: '保存',
             failed: '失敗 しました',
             passwordNotMatch: 'パスワードが一致しません',
-            required: '必要とされている'
+            required: '必要とされている',
+            success: '成功'
         },
         action: {
             submit: 'セーブ',
