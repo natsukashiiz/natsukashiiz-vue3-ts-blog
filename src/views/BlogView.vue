@@ -24,6 +24,7 @@ const data = reactive<BlogResponse>({
     id: 0,
     title: '',
     content: '',
+    category: '',
     publish: false,
     cdt: 0,
     uid: 0,

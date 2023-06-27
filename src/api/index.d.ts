@@ -92,6 +92,7 @@ export interface BlogResponse {
     id: number;
     title: string;
     content: string;
+    category: string;
     publish: boolean;
     cdt: number;
     uid: number;
@@ -101,4 +102,14 @@ export interface BlogResponse {
 export interface BlogRequest {
     title?: string;
     content?: string;
+    categoryId: number;
+}
+export interface BookmarkRequest {
+    blogId?: number;
+}
+
+export interface CategoryResponse {
+    id: number;
+    name: string;
+    cdt: number;
 }
