@@ -255,9 +255,22 @@ function saveLangStore(value: string) {
                 @update:value="saveLangStore"
                 style="width: 100px"
             />
+            <!-- theme -->
             <n-button @click="themeStore.changeTheme()" style="text-transform: capitalize">{{
                 $t('theme.' + themeStore.theme)
             }}</n-button>
+            <!-- <n-switch
+                v-model:value="themeStore.isDark"
+                @change="themeStore.changeTheme()"
+                style="margin-top: 6px"
+            >
+                <template #checked-icon>
+                    <n-icon :component="DarkIcon" />
+                </template>
+                <template #unchecked-icon>
+                    <n-icon :component="LightIcon" />
+                </template>
+            </n-switch> -->
             <!-- show if not login -->
             <div v-if="!authStore.isAuthenticated()">
                 <RouterLink :to="{ name: 'signIn' }">
