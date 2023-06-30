@@ -253,13 +253,13 @@ function saveLangStore(value: string) {
                 v-model:value="$i18n.locale"
                 :options="langOptions"
                 @update:value="saveLangStore"
-                style="width: 100px"
+                style="width: 90px"
             />
             <!-- theme -->
-            <n-button @click="themeStore.changeTheme()" style="text-transform: capitalize">{{
+            <!-- <n-button @click="themeStore.changeTheme()" style="text-transform: capitalize">{{
                 $t('theme.' + themeStore.theme)
-            }}</n-button>
-            <!-- <n-switch
+            }}</n-button> -->
+            <n-switch
                 v-model:value="themeStore.isDark"
                 @change="themeStore.changeTheme()"
                 style="margin-top: 6px"
@@ -270,7 +270,7 @@ function saveLangStore(value: string) {
                 <template #unchecked-icon>
                     <n-icon :component="LightIcon" />
                 </template>
-            </n-switch> -->
+            </n-switch>
             <!-- show if not login -->
             <div v-if="!authStore.isAuthenticated()">
                 <RouterLink :to="{ name: 'signIn' }">
