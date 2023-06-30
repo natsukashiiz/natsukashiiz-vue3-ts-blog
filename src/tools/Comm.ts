@@ -53,3 +53,18 @@ export function useIsSmallDesktop() {
         return breakpointRef.value === 'm';
     });
 }
+
+export function colorFormText(text: string): { background: string; text: string } {
+    let hashCode = 0;
+    for (let i = 0; i < text.length; i++) {
+        hashCode = (hashCode << 5) - hashCode + text.charCodeAt(i);
+        hashCode &= hashCode; // Convert to 32-bit integer
+    }
+
+    const randomBackgroundColor = '#' + ((hashCode >>> 0) % 0xffffff).toString(16).padStart(6, '0');
+
+    // Generate contrasting text color for light background
+    const textColor = '#000000';
+
+    return { background: randomBackgroundColor, text: textColor };
+}

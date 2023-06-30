@@ -7,6 +7,7 @@ import { BookmarkOutline as BookmarkIcon, Bookmark as BookmarkActiveIcon } from 
 import { add, remove } from '@/api/bookmark';
 import { useMessage } from 'naive-ui';
 import { useAuthStore } from '@/stores/AuthStore';
+import { colorFormText } from '@/tools/Comm';
 
 defineProps<{
     data: BlogResponse;
@@ -40,7 +41,14 @@ async function hanndleRemoveBookmark(blogId: number) {
         </n-space>
         <n-divider />
         <n-space justify="end">
-            <n-tag strong bordered type="info">
+            <n-tag
+                strong
+                bordered
+                :color="{
+                    color: colorFormText(data.category).background,
+                    fontColor: colorFormText(data.category).text
+                }"
+            >
                 {{ data.category.toUpperCase() }}
             </n-tag>
             <n-button
