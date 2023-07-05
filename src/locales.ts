@@ -40,10 +40,10 @@ export default {
             cdt: 'Time'
         },
         device: {
-            10: 'iPhone',
-            20: 'Android',
-            30: 'Windows',
-            100: 'Unknown'
+            iPhone: 'iPhone',
+            Android: 'Android',
+            Windows: 'Windows',
+            Unknown: 'Unknown'
         }
     },
     th: {
@@ -87,10 +87,10 @@ export default {
             cdt: 'เวลา'
         },
         device: {
-            10: 'ไอโฟน',
-            20: 'แอนดรอยด์',
-            30: 'วินโดว์',
-            100: 'ไม่รู้จัก'
+            iPhone: 'ไอโฟน',
+            Android: 'แอนดรอยด์',
+            Windows: 'วินโดว์',
+            Unknown: 'ไม่รู้จัก'
         }
     },
     ja: {
@@ -134,10 +134,10 @@ export default {
             cdt: '時間'
         },
         device: {
-            10: 'アイフォン',
-            20: 'アンドロイド',
-            30: 'ウィンドウズ',
-            100: '不明'
+            iPhone: 'アイフォン',
+            Android: 'アンドロイド',
+            Windows: 'ウィンドウズ',
+            Unknown: '不明'
         }
     }
 };

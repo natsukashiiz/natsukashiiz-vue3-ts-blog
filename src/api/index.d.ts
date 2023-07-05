@@ -5,6 +5,7 @@ export interface ApiResponse<T> {
     code: number;
     text: string;
     result?: T;
+    records: number;
     pagination: PaginationResponse;
 }
 
@@ -29,8 +30,6 @@ export interface PaginationResponse {
 export interface PaginationParams {
     page: number;
     limit: number;
-    sortBy: string;
-    sortType: 'asc' | 'desc';
 }
 
 export interface SignupRequest {
@@ -97,6 +96,7 @@ export interface BlogResponse {
     cdt: number;
     uid: number;
     uname: string;
+    bookmark: boolean;
 }
 
 export interface BlogRequest {

@@ -3,7 +3,6 @@ import { onMounted, ref } from 'vue';
 import { useLoadingBar, useMessage } from 'naive-ui';
 import type { BlogResponse } from '@/api';
 import { findByUser } from '@/api/blog';
-import { PaginationState } from '@/api/enum';
 import 'md-editor-v3/lib/preview.css';
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/AuthStore';
@@ -38,9 +37,7 @@ async function fetchData() {
     try {
         const res = await findByUser(uname.value, {
             page: page.value,
-            limit: pageSize.value,
-            sortBy: PaginationState.SORT_BY.toString(),
-            sortType: 'desc'
+            limit: pageSize.value
         });
         if (res.status === 200 && res.data.code === 0) {
             loading.finish();

@@ -3,7 +3,6 @@ import { onMounted, ref, h } from 'vue';
 import { useLoadingBar, useMessage, NTag, NTime, type DataTableColumns } from 'naive-ui';
 import type { SignHistoryResponse } from '@/api';
 import { signHistory } from '@/api/user';
-import { PaginationState } from '@/api/enum';
 import { t, useIsMobile } from '@/tools/Comm';
 
 const message = useMessage();
@@ -66,14 +65,12 @@ async function fetchData() {
     try {
         const res = await signHistory({
             page: page.value,
-            limit: isMobile ? 5 : pageSize.value,
-            sortBy: PaginationState.SORT_BY.toString(),
-            sortType: 'desc'
+            limit: isMobile ? 5 : pageSize.value
         });
         if (res.status === 200 && res.data.code === 0) {
             loading.finish();
             if (res.data.result) signHistoryList.value = res.data.result;
-            if (res.data.pagination) pageCount.value = res.data.pagination.pages;
+            if (res.data.pagination) pageCount.value = res.data.records;
         }
         if (res.data && res.data.code && res.data.text) {
             loading.error();

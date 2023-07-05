@@ -17,12 +17,12 @@ const authStore = useAuthStore();
 const message = useMessage();
 
 // function
-async function hanndleAddBookmark(blogId: number) {
+async function handleAddBookmark(blogId: number) {
     add({ blogId });
     message.success('Added bookmark');
 }
 
-async function hanndleRemoveBookmark(blogId: number) {
+async function handleRemoveBookmark(blogId: number) {
     remove(blogId);
     message.success('Removed bookmark');
 }
@@ -40,36 +40,30 @@ async function hanndleRemoveBookmark(blogId: number) {
             </div>
         </n-space>
         <n-divider />
-        <n-space justify="end">
-            <n-tag
-                strong
-                bordered
-                :color="{
-                    color: colorFormText(data.category).background,
-                    fontColor: colorFormText(data.category).text
-                }"
-            >
-                {{ data.category.toUpperCase() }}
+        <n-space justify="end" v-if="authStore.isAuthenticated()">
+            <n-tag strong bordered>
+                {{ data.category }}
             </n-tag>
-            <n-button
-                v-if="authStore.isAuthenticated()"
-                size="small"
-                @click="hanndleAddBookmark(data.id)"
-            >
-                <template #icon>
-                    <n-icon><BookmarkIcon /></n-icon>
+            <n-tooltip trigger="hover">
+                <template #trigger>
+                    <n-button size="small" @click="handleAddBookmark(data.id)">
+                        <template #icon>
+                            <n-icon><BookmarkIcon /></n-icon>
+                        </template>
+                    </n-button>
                 </template>
-            </n-button>
-            <n-button
-                v-if="authStore.isAuthenticated()"
-                size="small"
-                color="#ff69b4"
-                @click="hanndleRemoveBookmark(data.id)"
-            >
-                <template #icon>
-                    <n-icon><BookmarkActiveIcon /></n-icon>
+                Add to bookmarks
+            </n-tooltip>
+            <!-- <n-tooltip trigger="hover" v-else>
+                <template #trigger>
+                    <n-button size="small" color="#ff69b4" @click="handleRemoveBookmark(data.id)">
+                        <template #icon>
+                            <n-icon><BookmarkActiveIcon /> </n-icon>
+                        </template>
+                    </n-button>
                 </template>
-            </n-button>
+                Remove from bookmarks
+            </n-tooltip> -->
         </n-space>
         <router-link :to="`/blog/${data.id}`">
             <n-h1>
