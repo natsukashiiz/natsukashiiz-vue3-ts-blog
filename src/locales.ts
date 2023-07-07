@@ -13,7 +13,8 @@ export default {
             failed: 'Failed',
             passwordNotMatch: 'Password not match',
             required: 'is required',
-            success: 'Successful'
+            success: 'Successful',
+            readMore: 'Read more...'
         },
         action: {
             submit: 'Submit',
@@ -25,6 +26,7 @@ export default {
             signUp: 'Create a account',
             profile: 'Profile',
             write: 'Write',
+            bookmarks: 'Bookmarks',
             signHistory: 'Sign history',
             logout: 'Logout',
             language: 'Language',
@@ -44,6 +46,16 @@ export default {
             Android: 'Android',
             Windows: 'Windows',
             Unknown: 'Unknown'
+        },
+        blog:{
+            title: "Title",
+            category: "Category"
+        },
+        bookmark: {
+            add: "Add to bookmarks",
+            added: "Added to bookmarks",
+            remove: "Remove from bookmarks",
+            removed: "Removed from bookmarks",
         }
     },
     th: {
@@ -60,7 +72,8 @@ export default {
             failed: 'ล้มเหลว',
             passwordNotMatch: 'รหัสผ่านไม่ตรงกัน',
             required: 'ต้องระบุ',
-            success: 'สำเร็จ'
+            success: 'สำเร็จ',
+            readMore: 'อ่านต่อ...'
         },
         action: {
             submit: 'บันทึก',
@@ -72,6 +85,7 @@ export default {
             signUp: 'ลงทะเบียน',
             profile: 'โปรไฟล์',
             write: 'เขียน',
+            bookmarks: 'บุ๊กมาร์ก',
             signHistory: 'ประวัติการเข้าสู่ระบบ',
             logout: 'ออกจากระบบ',
             language: 'ภาษา',
@@ -91,6 +105,16 @@ export default {
             Android: 'แอนดรอยด์',
             Windows: 'วินโดว์',
             Unknown: 'ไม่รู้จัก'
+        },
+        blog:{
+            title: "หัวข้อ",
+            category: "หมวดหมู่"
+        },
+        bookmark: {
+            add: "เพิ่มในบุ๊กมาร์ก",
+            added: "เพิ่มไปยังบุ๊กมาร์กแล้ว",
+            remove: "ลบออกจากบุ๊กมาร์ก",
+            removed: "ลบออกจากบุ๊กมาร์กแล้ว",
         }
     },
     ja: {
@@ -107,7 +131,8 @@ export default {
             failed: '失敗 しました',
             passwordNotMatch: 'パスワードが一致しません',
             required: '必要とされている',
-            success: '成功'
+            success: '成功',
+            readMore: '続きを読む...'
         },
         action: {
             submit: 'セーブ',
@@ -119,6 +144,7 @@ export default {
             signUp: 'サインアップ',
             profile: 'プロフィール',
             write: '書く',
+            bookmarks: 'ブックマーク',
             signHistory: 'ログイン履歴',
             logout: 'ログアウト',
             language: '言語',
@@ -138,6 +164,16 @@ export default {
             Android: 'アンドロイド',
             Windows: 'ウィンドウズ',
             Unknown: '不明'
+        },
+        blog:{
+            title: "タイトル",
+            category: "カテゴリー"
+        },
+        bookmark: {
+            add: "ブックマークに追加",
+            added: "ブックマークから削除されました",
+            remove: "ブックマークから削除",
+            removed: "ブックマークに追加されました",
         }
     }
 };

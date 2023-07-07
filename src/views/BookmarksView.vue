@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useLoadingBar, useMessage } from 'naive-ui';
-import type { BlogResponse } from '@/api';
-import { findAll } from '@/api/blog';
+import type { BookmarkResponse } from '@/api';
+import { findAll } from '@/api/bookmark';
 import { PaginationState } from '@/api/enum';
 import 'md-editor-v3/lib/preview.css';
 import MBlog from '@/components/MBlog.vue';
@@ -13,7 +13,7 @@ import { AxiosError } from 'axios';
 const message = useMessage();
 const loading = useLoadingBar();
 
-const dataList = ref<Array<BlogResponse>>([]);
+const dataList = ref<Array<BookmarkResponse>>([]);
 
 const page = ref<number>(1);
 const pageSize = ref<number>(100);
@@ -55,9 +55,12 @@ onMounted(async () => {
 </script>
 
 <template>
+    <n-space justify="center">
+        <n-gradient-text size="30" type="warning"> bookmarks </n-gradient-text>
+    </n-space>
     <n-space vertical>
         <div v-for="data in dataList" :key="data.id">
-            <MBlog :data="data">
+            <MBlog :data="data.blog">
                 <template #header>
                     <router-link :to="{ path: `/@${data.uname}` }">
                         <MAvatar :name="data.uname"

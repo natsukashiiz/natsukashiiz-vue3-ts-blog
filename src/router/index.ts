@@ -44,11 +44,16 @@ const router = createRouter({
                     name: 'blogEditor',
                     component: () => import('@/views/EditorBlogView.vue'),
                     beforeEnter: isAuth
+                },
+                {
+                    path: 'bookmarks',
+                    name: 'bookmarks',
+                    component: () => import('@/views/BookmarksView.vue')
                 }
             ]
         },
         {
-            path: '/account',
+            path: '/',
             component: () => import('@/views/layouts/PrivateLayout.vue'),
             beforeEnter: isAuth,
             children: [
@@ -66,6 +71,7 @@ const router = createRouter({
         },
         {
             path: '/:pathMatch(.*)*',
+            name: 'notFound',
             component: () => import('@/views/errors/NotFoundView.vue')
         }
     ]

@@ -5,14 +5,15 @@ import type { MenuOption } from 'naive-ui';
 import {
     CreateOutline as CreateIcon,
     HomeOutline as HomeIcon,
-    LogOutOutline as LogoutIcon,
-    PersonCircleOutline as UserIcon,
-    TimeOutline as TimeIcon,
-    MenuOutline as MenuIcon,
-    SunnyOutline as LightIcon,
-    MoonOutline as DarkIcon,
     LanguageOutline as LangIcon,
-    LogInOutline as LoginIcon
+    LogInOutline as LoginIcon,
+    LogOutOutline as LogoutIcon,
+    MenuOutline as MenuIcon,
+    MoonOutline as DarkIcon,
+    PersonCircleOutline as UserIcon,
+    SunnyOutline as LightIcon,
+    TimeOutline as TimeIcon,
+    BookmarksOutline as BookmarkIcon
 } from '@vicons/ionicons5';
 import { useAuthStore } from '@/stores/AuthStore';
 import { useThemeStore } from '@/stores/ThemeStore';
@@ -83,6 +84,20 @@ const userMenu: MenuOption[] = [
         props: {
             onClick: () => emit('openModal', true)
         }
+    },
+    {
+        label: () =>
+            h(
+                RouterLink,
+                {
+                    to: {
+                        name: 'bookmarks'
+                    }
+                },
+                { default: t('menu.bookmarks') }
+            ),
+        key: 'bookmarks',
+        icon: renderIcon(BookmarkIcon)
     },
     {
         label: () =>
@@ -218,6 +233,20 @@ const mobileMenuOptions: MenuOption[] = [
                         RouterLink,
                         {
                             to: {
+                                name: 'bookmarks'
+                            }
+                        },
+                        { default: t('menu.bookmarks') }
+                    ),
+                key: 'bookmarks',
+                icon: renderIcon(BookmarkIcon)
+            },
+            {
+                label: () =>
+                    h(
+                        RouterLink,
+                        {
+                            to: {
                                 name: 'signHistory'
                             }
                         },
@@ -247,21 +276,10 @@ function saveLangStore(value: string) {
     <n-space :justify="isMobile ? 'space-between' : 'space-around'">
         <n-menu v-model:value="activeKey" mode="horizontal" :options="menuOptions" />
         <n-space v-if="!isMobile">
-            <!-- select lang -->
-            <n-select
-                :bordered="false"
-                v-model:value="$i18n.locale"
-                :options="langOptions"
-                @update:value="saveLangStore"
-                style="width: 90px"
-            />
             <!-- theme -->
-            <!-- <n-button @click="themeStore.changeTheme()" style="text-transform: capitalize">{{
-                $t('theme.' + themeStore.theme)
-            }}</n-button> -->
             <n-switch
                 v-model:value="themeStore.isDark"
-                @change="themeStore.changeTheme()"
+                @update:value="themeStore.changeTheme()"
                 style="margin-top: 6px"
             >
                 <template #checked-icon>
@@ -271,6 +289,13 @@ function saveLangStore(value: string) {
                     <n-icon :component="LightIcon" />
                 </template>
             </n-switch>
+            <!-- select lang -->
+            <n-select
+                v-model:value="$i18n.locale"
+                :options="langOptions"
+                @update:value="saveLangStore"
+                style="width: 88px"
+            />
             <!-- show if not login -->
             <div v-if="!authStore.isAuthenticated()">
                 <RouterLink :to="{ name: 'signIn' }">
@@ -279,14 +304,16 @@ function saveLangStore(value: string) {
             </div>
             <!-- user drop down menu -->
             <n-dropdown :options="userMenu" v-else>
-                <n-avatar round>
+                <n-avatar round style="border: #FF9B9B 2px solid">
                     {{ avatarName(authStore.payload?.name ?? '?') }}
                 </n-avatar>
             </n-dropdown>
         </n-space>
         <n-dropdown v-else :options="mobileMenuOptions">
             <n-button text style="margin-top: 11px; margin-right: 20px">
-                <n-icon size="large"><MenuIcon /></n-icon>
+                <n-icon size="large">
+                    <MenuIcon />
+                </n-icon>
             </n-button>
         </n-dropdown>
     </n-space>
