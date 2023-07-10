@@ -228,10 +228,18 @@ const mobileMenuOptions: MenuOption[] = [
         disabled: true
       },
       {
-        label: t('menu.bookmarks'),
+        label: () =>
+            h(
+                RouterLink,
+                {
+                  to: {
+                    name: 'bookmarks'
+                  }
+                },
+                {default: t('menu.bookmarks')}
+            ),
         key: 'bookmarks',
-        icon: renderIcon(BookmarkIcon),
-        disabled: true
+        icon: renderIcon(BookmarkIcon)
       },
       {
         label: () =>
