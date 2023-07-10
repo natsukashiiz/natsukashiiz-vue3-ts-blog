@@ -179,6 +179,9 @@ const signUpRules: FormRules = {
                     <n-button @click="handleSignIn" type="primary" block secondary strong>{{
                         $t('menu.signIn')
                     }}</n-button>
+                    <n-space justify="end" style="margin-top: 5px">
+                        <a href="#forgot">Forgot password ?</a>
+                    </n-space>
                 </n-tab-pane>
                 <n-tab-pane name="signup" :tab="$t('menu.signUp')">
                     <n-form ref="formRef" :model="signUpForm" :rules="signUpRules">

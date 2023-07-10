@@ -48,15 +48,15 @@ export default {
             Windows: 'Windows',
             Unknown: 'Unknown'
         },
-        blog:{
-            title: "Title",
-            category: "Category"
+        blog: {
+            title: 'Title',
+            category: 'Category'
         },
         bookmark: {
-            add: "Add to bookmarks",
-            added: "Added to bookmarks",
-            remove: "Remove from bookmarks",
-            removed: "Removed from bookmarks",
+            add: 'Add to bookmarks',
+            added: 'Added to bookmarks',
+            remove: 'Remove from bookmarks',
+            removed: 'Removed from bookmarks'
         }
     },
     th: {
@@ -108,15 +108,15 @@ export default {
             Windows: 'วินโดว์',
             Unknown: 'ไม่รู้จัก'
         },
-        blog:{
-            title: "หัวข้อ",
-            category: "หมวดหมู่"
+        blog: {
+            title: 'หัวข้อ',
+            category: 'หมวดหมู่'
         },
         bookmark: {
-            add: "เพิ่มในบุ๊กมาร์ก",
-            added: "เพิ่มไปยังบุ๊กมาร์กแล้ว",
-            remove: "ลบออกจากบุ๊กมาร์ก",
-            removed: "ลบออกจากบุ๊กมาร์กแล้ว",
+            add: 'เพิ่มในบุ๊กมาร์ก',
+            added: 'เพิ่มไปยังบุ๊กมาร์กแล้ว',
+            remove: 'ลบออกจากบุ๊กมาร์ก',
+            removed: 'ลบออกจากบุ๊กมาร์กแล้ว'
         }
     },
     ja: {
@@ -168,15 +168,15 @@ export default {
             Windows: 'ウィンドウズ',
             Unknown: '不明'
         },
-        blog:{
-            title: "タイトル",
-            category: "カテゴリー"
+        blog: {
+            title: 'タイトル',
+            category: 'カテゴリー'
         },
         bookmark: {
-            add: "ブックマークに追加",
-            added: "ブックマークから削除されました",
-            remove: "ブックマークから削除",
-            removed: "ブックマークに追加されました",
+            add: 'ブックマークに追加',
+            added: 'ブックマークから削除されました',
+            remove: 'ブックマークから削除',
+            removed: 'ブックマークに追加されました'
         }
     }
 };

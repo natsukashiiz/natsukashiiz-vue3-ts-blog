@@ -8,7 +8,7 @@ export function textLimit(text: string, limit: number): string {
 }
 
 export function avatarName(text: string): string {
-    return text !== undefined ? text.substring(0, 1).toUpperCase() : "?";
+    return text !== undefined ? text.substring(0, 1).toUpperCase() : '?';
 }
 
 export function renderIcon(icon: Component) {

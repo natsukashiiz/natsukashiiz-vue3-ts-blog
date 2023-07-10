@@ -1,5 +1,5 @@
-import {defineStore} from 'pinia';
-import {ref} from 'vue';
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
 
 export const useThemeStore = defineStore('theme', () => {
     const prefix = 'theme';
@@ -27,5 +27,5 @@ export const useThemeStore = defineStore('theme', () => {
 
     loadTheme();
 
-    return {theme, saveTheme, changeTheme, isLight, isDark};
+    return { theme, saveTheme, changeTheme, isLight, isDark };
 });
