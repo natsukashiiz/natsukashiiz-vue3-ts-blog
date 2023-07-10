@@ -17,7 +17,7 @@ import router from '@/router';
 import {useAuthStore} from '@/stores/AuthStore';
 import {avatarName, renderIcon, useIsMobile} from '@/tools/Comm';
 import {useThemeStore} from '@/stores/ThemeStore';
-import useClipboard from 'vue-clipboard3'
+import {useClipboard, usePermission } from "@vueuse/core";
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -29,16 +29,14 @@ const blogId = ref<number>(0);
 const data = ref<BlogResponse>({});
 const showModalOfShare = ref<boolean>(false)
 const url = ref<string>(window.location.href)
+const source = ref('Hello')
+const {text, copy, copied, isSupported} = useClipboard({source})
 
-const {toClipboard} = useClipboard()
+const permissionRead = usePermission('clipboard-read')
+const permissionWrite = usePermission('clipboard-write')
 
 async function copyLink() {
-  try {
-    await toClipboard(url.value)
-    console.log('Copied to clipboard: ', url.value);
-  } catch (e) {
-    console.error(e)
-  }
+  await copy(source.value)
 }
 
 async function fetchData() {
@@ -98,6 +96,10 @@ onBeforeMount(async () => {
           </template>
         </n-button>
       </template>
+      <note>
+        Clipboard Permission: read <b>{{ permissionRead }}</b> | write
+        <b>{{ permissionWrite }}</b>
+      </note>
       <n-space justify="center">
         <a :href="'https://www.facebook.com/sharer/sharer.php?u='+url" target="_blank">
           <n-button color="#4267B2" ghost>
@@ -109,7 +111,7 @@ onBeforeMount(async () => {
             Facebook
           </n-button>
         </a>
-        <n-button ghost @click="copyLink">
+        <n-button ghost @click="copy(source)">
           <template #icon>
             <n-icon>
               <CopyIcon/>
