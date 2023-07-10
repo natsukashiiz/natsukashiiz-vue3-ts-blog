@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import {onBeforeMount, ref} from 'vue';
 import {useLoadingBar, useMessage} from 'naive-ui';
-import {CreateOutline as PencilIcon} from '@vicons/ionicons5';
+import {
+  Close as CloseIcon,
+  Copy as CopyIcon,
+  CreateOutline as PencilIcon,
+  LogoFacebook as FacebookIcon,
+  ShareOutline as ShareIcon
+} from '@vicons/ionicons5';
 import type {BlogResponse} from '@/api';
 import {findById} from '@/api/blog';
 import {MdPreview} from 'md-editor-v3';
@@ -11,6 +17,7 @@ import router from '@/router';
 import {useAuthStore} from '@/stores/AuthStore';
 import {avatarName, renderIcon, useIsMobile} from '@/tools/Comm';
 import {useThemeStore} from '@/stores/ThemeStore';
+import useClipboard from 'vue-clipboard3'
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -20,6 +27,19 @@ const isMobile = useIsMobile();
 
 const blogId = ref<number>(0);
 const data = ref<BlogResponse>({});
+const showModalOfShare = ref<boolean>(false)
+const url = ref<string>(window.location.href)
+
+const {toClipboard} = useClipboard()
+
+async function copyLink() {
+  try {
+    await toClipboard(url.value)
+    console.log('Copied to clipboard: ', url.value);
+  } catch (e) {
+    console.error(e)
+  }
+}
 
 async function fetchData() {
   loading.start();
@@ -60,6 +80,47 @@ onBeforeMount(async () => {
 </script>
 
 <template>
+  <n-modal v-model:show="showModalOfShare">
+    <n-card
+        style="width: 350px"
+        :title="$t('common.share')"
+        :bordered="false"
+        size="huge"
+        role="dialog"
+        aria-modal="true"
+    >
+      <template #header-extra>
+        <n-button text @click="showModalOfShare = false">
+          <template #icon>
+            <n-icon>
+              <CloseIcon/>
+            </n-icon>
+          </template>
+        </n-button>
+      </template>
+      <n-space justify="center">
+        <a :href="'https://www.facebook.com/sharer/sharer.php?u='+url" target="_blank">
+          <n-button color="#4267B2" ghost>
+            <template #icon>
+              <n-icon>
+                <FacebookIcon/>
+              </n-icon>
+            </template>
+            Facebook
+          </n-button>
+        </a>
+        <n-button ghost @click="copyLink">
+          <template #icon>
+            <n-icon>
+              <CopyIcon/>
+            </n-icon>
+          </template>
+          Copy link
+        </n-button>
+      </n-space>
+    </n-card>
+  </n-modal>
+
   <n-space vertical>
     <n-card :bordered="false">
       <template #header>
@@ -88,6 +149,18 @@ onBeforeMount(async () => {
               :render-icon="renderIcon(PencilIcon)"
               @click="() => router.push(`/blog/${data.id}/write`)"
           />
+          <n-tooltip trigger="hover">
+            <template #trigger>
+              <n-button @click="showModalOfShare = true">
+                <template #icon>
+                  <n-icon size="large">
+                    <ShareIcon/>
+                  </n-icon>
+                </template>
+              </n-button>
+            </template>
+            {{ $t("common.share") }}
+          </n-tooltip>
         </n-h1>
       </template>
       <MdPreview

@@ -14,7 +14,8 @@ export default {
             passwordNotMatch: 'Password not match',
             required: 'is required',
             success: 'Successful',
-            readMore: 'Read more...'
+            readMore: 'Read more...',
+            share: 'Share'
         },
         action: {
             submit: 'Submit',
@@ -73,7 +74,8 @@ export default {
             passwordNotMatch: 'รหัสผ่านไม่ตรงกัน',
             required: 'ต้องระบุ',
             success: 'สำเร็จ',
-            readMore: 'อ่านต่อ...'
+            readMore: 'อ่านต่อ...',
+            share: 'แบ่งปัน'
         },
         action: {
             submit: 'บันทึก',
@@ -132,7 +134,8 @@ export default {
             passwordNotMatch: 'パスワードが一致しません',
             required: '必要とされている',
             success: '成功',
-            readMore: '続きを読む...'
+            readMore: '続きを読む...',
+            share: '共有'
         },
         action: {
             submit: 'セーブ',
