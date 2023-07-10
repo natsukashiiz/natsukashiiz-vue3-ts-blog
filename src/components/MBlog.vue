@@ -18,7 +18,7 @@ const message = useMessage();
 const bookmarkRef = ref<boolean>(true);
 
 onBeforeMount(()=>{
-  bookmarkRef.value = data.bookmark || false
+  bookmarkRef.value = data.bookmark || false;
 })
 
 // function
