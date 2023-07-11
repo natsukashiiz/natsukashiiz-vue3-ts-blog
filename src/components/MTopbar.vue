@@ -304,7 +304,7 @@ function saveLangStore(value: string) {
             </div>
             <!-- user drop down menu -->
             <n-dropdown :options="userMenu" v-else>
-                <n-avatar round style="border: #ff9b9b 2px solid">
+                <n-avatar round style="border: #ff5a99ff 2px solid">
                     {{ avatarName(authStore.payload?.name ?? '?') }}
                 </n-avatar>
             </n-dropdown>

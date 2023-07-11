@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import { RouterView } from 'vue-router';
 import type { ConfigProviderProps } from 'naive-ui';
+import themeOverrides from '@/theme'
 import {
     darkTheme,
     lightTheme,
@@ -35,6 +36,7 @@ const themeStore = useThemeStore();
 <template>
     <n-config-provider
         :theme="themeStore.theme === 'light' ? lightTheme : darkTheme"
+        :theme-overrides="themeOverrides"
         :locale="$i18n.locale == 'en' ? enUS : $i18n.locale == 'th' ? thTH : jaJP"
         :date-locale="$i18n.locale == 'en' ? dateEnUS : $i18n.locale == 'th' ? dateThTH : dateJaJP"
     >

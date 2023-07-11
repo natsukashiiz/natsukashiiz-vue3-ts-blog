@@ -15,7 +15,10 @@ export default {
             required: 'is required',
             success: 'Successful',
             readMore: 'Read more...',
-            share: 'Share'
+            share: 'Share',
+            forgotPassword: 'Forgot password?',
+            copyLink: 'Copy link',
+            copied: 'Copied'
         },
         action: {
             submit: 'Submit',
@@ -24,7 +27,7 @@ export default {
         menu: {
             home: 'Home',
             signIn: 'Sign in',
-            signUp: 'Create a account',
+            signUp: 'Create account',
             profile: 'Profile',
             write: 'Write',
             bookmarks: 'Bookmarks',
@@ -75,7 +78,10 @@ export default {
             required: 'ต้องระบุ',
             success: 'สำเร็จ',
             readMore: 'อ่านต่อ...',
-            share: 'แบ่งปัน'
+            share: 'แบ่งปัน',
+            forgotPassword: 'ลืมรหัสผ่าน?',
+            copyLink: 'คัดลอกลิงค์',
+            copied: 'คัดลอกแล้ว'
         },
         action: {
             submit: 'บันทึก',
@@ -135,7 +141,10 @@ export default {
             required: '必要とされている',
             success: '成功',
             readMore: '続きを読む...',
-            share: '共有'
+            share: '共有',
+            forgotPassword: 'パスワードをお忘れですか?',
+            copyLink: 'リンクをコピーする',
+            copied: 'コピーされました'
         },
         action: {
             submit: 'セーブ',
