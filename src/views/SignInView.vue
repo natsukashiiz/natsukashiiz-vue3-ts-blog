@@ -180,7 +180,7 @@ const signUpRules: FormRules = {
                         $t('menu.signIn')
                     }}</n-button>
                     <n-space justify="end" style="margin-top: 5px">
-                        <a href="#forgot">{{$t('common.forgotPassword')}}</a>
+                        <a href="#forgot">{{ $t('common.forgotPassword') }}</a>
                     </n-space>
                 </n-tab-pane>
                 <n-tab-pane name="signup" :tab="$t('menu.signUp')">

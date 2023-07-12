@@ -20,6 +20,7 @@
         "esModuleInterop": true,
         "strict": true,
         "resolveJsonModule": true,
-        "isolatedModules": true
+        "isolatedModules": true,
+        "types": ["vite-plugin-pwa/client"]
     }
 }
