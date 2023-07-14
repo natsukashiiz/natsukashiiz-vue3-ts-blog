@@ -2,6 +2,9 @@ import { type Component, h } from 'vue';
 import { NIcon } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
 import { useBreakpoint, useMemo } from 'vooks';
+import { Natsukashiiz } from '@/constant';
+import { useTitle } from '@vueuse/core';
+const title = useTitle();
 
 export function textLimit(text: string, limit: number): string {
     return text.substring(0, limit) + (text.length > limit ? '...' : '');
@@ -53,4 +56,12 @@ export function colorFormText(text: string): { background: string; text: string 
     const textColor = '#000000';
 
     return { background: randomBackgroundColor, text: textColor };
+}
+
+export function updateTitle(str: string | undefined): void {
+    title.value = Natsukashiiz + ' | ' + (str || '');
+}
+
+export function defaultTitle(): void {
+    title.value = Natsukashiiz;
 }

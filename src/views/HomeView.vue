@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import { useLoadingBar, useMessage } from 'naive-ui';
 import type { BlogResponse } from '@/api';
 import { findAll } from '@/api/blog';
-import { PaginationState } from '@/api/enum';
 import 'md-editor-v3/lib/preview.css';
 import MBlog from '@/components/MBlog.vue';
 import MAvatar from '@/components/MAvatar.vue';
 import router from '@/router';
 import { AxiosError } from 'axios';
+import { defaultTitle } from '@/tools/Comm';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -49,8 +49,9 @@ async function fetchData() {
     }
 }
 
-onMounted(async () => {
+onBeforeMount(async () => {
     await fetchData();
+    defaultTitle();
 });
 </script>
 

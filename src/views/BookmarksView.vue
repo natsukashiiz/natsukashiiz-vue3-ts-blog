@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import { useLoadingBar, useMessage } from 'naive-ui';
 import type { BookmarkResponse } from '@/api';
 import { findAll } from '@/api/bookmark';
-import { PaginationState } from '@/api/enum';
 import 'md-editor-v3/lib/preview.css';
 import MBlog from '@/components/MBlog.vue';
 import MAvatar from '@/components/MAvatar.vue';
 import router from '@/router';
 import { AxiosError } from 'axios';
+import { updateTitle } from '@/tools/Comm';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -49,8 +49,9 @@ async function fetchData() {
     }
 }
 
-onMounted(async () => {
+onBeforeMount(async () => {
     await fetchData();
+    updateTitle('Bookmarks');
 });
 </script>
 
@@ -62,8 +63,8 @@ onMounted(async () => {
         <div v-for="data in dataList" :key="data.id">
             <MBlog :data="data.blog">
                 <template #header>
-                    <router-link :to="{ path: `/@${data.uname}` }">
-                        <MAvatar :name="data.uname"
+                    <router-link :to="{ path: `/@${data.blog.uname}` }">
+                        <MAvatar :name="data.blog.uname"
                     /></router-link>
                 </template>
             </MBlog>

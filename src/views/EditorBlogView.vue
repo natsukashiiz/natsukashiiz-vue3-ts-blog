@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import 'md-editor-v3/lib/style.css';
 import { MdEditor } from 'md-editor-v3';
 import { useLoadingBar, useMessage } from 'naive-ui';
 import { findById, update, publish } from '@/api/blog';
 import { useRoute } from 'vue-router';
 import router from '@/router';
-import { t } from '@/tools/Comm';
+import { t, updateTitle } from '@/tools/Comm';
 import { useThemeStore } from '@/stores/ThemeStore';
 
 const message = useMessage();
@@ -93,13 +93,15 @@ async function fetchData() {
     }
 }
 
-onMounted(async () => {
+onBeforeMount(async () => {
     if (route.params.id == null) {
         router.push({ name: 'home' });
     }
 
     blogId.value = Number(route.params.id);
     await fetchData();
+
+    updateTitle(title.value);
 });
 </script>
 

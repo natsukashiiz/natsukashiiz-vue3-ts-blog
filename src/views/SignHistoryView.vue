@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { onMounted, ref, h } from 'vue';
+import { onBeforeMount, ref, h } from 'vue';
 import { useLoadingBar, useMessage, NTag, NTime, type DataTableColumns } from 'naive-ui';
 import type { SignHistoryResponse } from '@/api';
 import { signHistory } from '@/api/user';
-import { t, useIsMobile } from '@/tools/Comm';
+import { t, updateTitle, useIsMobile } from '@/tools/Comm';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -87,8 +87,9 @@ async function fetchData() {
     }
 }
 
-onMounted(async () => {
+onBeforeMount(async () => {
     await fetchData();
+    updateTitle('Sign History');
 });
 </script>
 

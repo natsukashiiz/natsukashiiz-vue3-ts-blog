@@ -88,21 +88,21 @@ export interface SignHistoryResponse {
 }
 
 export interface BlogResponse {
-    id?: number;
-    title?: string;
-    content?: string;
-    category?: string;
-    publish?: boolean;
-    cdt?: number;
-    uid?: number;
-    uname?: string;
-    bookmark?: boolean;
+    id: number;
+    title: string;
+    content: string;
+    category: string;
+    publish: boolean;
+    cdt: number;
+    uid: number;
+    uname: string;
+    bookmark: boolean;
 }
 
 export interface BlogRequest {
     title: string | null;
     content: string | null;
-    categoryId: number | null;
+    categoryId?: number | null;
 }
 export interface BookmarkRequest {
     blogId?: number;

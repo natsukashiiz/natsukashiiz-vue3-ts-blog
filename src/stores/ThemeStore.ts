@@ -3,14 +3,14 @@ import { ref } from 'vue';
 
 export const useThemeStore = defineStore('theme', () => {
     const prefix = 'theme';
-    const theme = ref<string>('light');
+    const theme = ref<'light' | 'dark'>('light');
     const isLight = ref<boolean>(true);
     const isDark = ref<boolean>(false);
 
     function loadTheme() {
         const localTheme = localStorage.getItem(prefix);
         if (localTheme != null) {
-            theme.value = localTheme as string;
+            theme.value = localTheme as 'light' | 'dark';
             isLight.value = theme.value === 'light';
             isDark.value = theme.value === 'dark';
         }

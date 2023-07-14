@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import { useLoadingBar, useMessage } from 'naive-ui';
 import type { BlogResponse } from '@/api';
 import { findByUser } from '@/api/blog';
@@ -10,6 +10,7 @@ import { onBeforeRouteUpdate } from 'vue-router';
 
 import MBlog from '@/components/MBlog.vue';
 import MAvatar from '@/components/MAvatar.vue';
+import { updateTitle } from '@/tools/Comm';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -59,9 +60,11 @@ async function fetchData() {
     }
 }
 
-onMounted(async () => {
+onBeforeMount(async () => {
     uname.value = String(route.params.uname);
     await fetchData();
+
+    updateTitle(uname.value);
 });
 
 onBeforeRouteUpdate(async (to, from) => {

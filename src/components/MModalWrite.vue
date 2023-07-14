@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { findAll } from '@/api/category';
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import { type FormInst, type FormRules, type FormValidationError, useMessage } from 'naive-ui';
 import { type BlogRequest, type CategoryResponse } from '@/api';
 import { create } from '@/api/blog';
@@ -33,7 +33,7 @@ const rules: FormRules = {
     }
 };
 
-onMounted(async () => {
+onBeforeMount(async () => {
     await fetchCategories();
     categoriesRef.value?.map((val) => {
         categoriesOptions.push({

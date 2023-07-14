@@ -1,12 +1,12 @@
 <script setup lang="ts">
 // import
-import { ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import type { FormInst, FormRules, FormValidationError } from 'naive-ui';
 import { useLoadingBar, useMessage, type TabsInst } from 'naive-ui';
 import type { SigninRequest, SignupRequest } from '@/api';
 import { useAuthStore } from '@/stores/AuthStore';
 import { signUp } from '@/api/auth';
-import { t, useIsMobile } from '@/tools/Comm';
+import { t, useIsMobile, updateTitle } from '@/tools/Comm';
 
 const authStore = useAuthStore();
 const message = useMessage();
@@ -151,6 +151,10 @@ const signUpRules: FormRules = {
         }
     ]
 };
+
+onBeforeMount(() => {
+    updateTitle('Sign in');
+});
 </script>
 
 <template>
