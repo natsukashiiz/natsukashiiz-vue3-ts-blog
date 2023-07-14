@@ -12,8 +12,9 @@ import {
 } from 'naive-ui';
 import type { SignHistoryResponse, SigninRequest, UserResponse } from '@/api';
 import { account } from '@/api/user';
-import { t, updateTitle, useIsMobile } from '@/tools/Comm';
+import { t, updateTitle, useIsMobile, avatarName } from '@/tools/Comm';
 import { useAuthStore } from '@/stores/AuthStore';
+import type { FileInfo } from 'naive-ui/es/upload/src/interface';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -113,25 +114,30 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-    <n-card style="width: 450px">
-        <n-space justify="center">
-            <n-tooltip trigger="hover">
-                <template #trigger>
-                    <n-upload
-                        action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
-                        style="cursor: pointer"
+    <n-card title="Profile Picture" style="width: 700px">
+        <template #header-extra>
+            <n-space justify="end">
+                <n-tag type="error">Must be JPG, JPEG or PNG and cannot exceed 10MB.</n-tag>
+            </n-space>
+        </template>
+        <n-space>
+            <n-avatar round :size="100">
+                {{ avatarName(accountRef.username) }}
+            </n-avatar>
+            <n-space vertical style="margin-top: 25px">
+                <n-upload
+                    :on-preview="(file: FileInfo) => console.log(file)"
+                    action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
+                >
+                    <n-button v-if="accountRef.avatar" tertiary strong
+                        >Update Profile Picture</n-button
                     >
-                        <n-avatar
-                            round
-                            :size="150"
-                            src="https://yt3.googleusercontent.com/-CFTJHU7fEWb7BYEb6Jh9gm1EpetvVGQqtof0Rbh-VQRIznYYKJxCaqv_9HeBcmJmIsp2vOO9JU=s900-c-k-c0x00ffffff-no-rj"
-                        />
-                    </n-upload>
-                </template>
-                Click to upload
-            </n-tooltip>
+                    <n-button v-else tertiary strong>Add Profile Picture</n-button>
+                </n-upload>
+            </n-space>
         </n-space>
-        <n-divider />
+    </n-card>
+    <n-card title="Profile Settings" style="width: 700px; margin-top: 15px">
         <n-form ref="formRef" :model="signInForm" :rules="signInRules">
             <n-form-item path="username" label="UID">
                 <n-input :value="accountRef.id" disabled />
