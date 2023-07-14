@@ -17,8 +17,14 @@ const router = createRouter({
     routes: [
         {
             path: '/@:uname',
-            name: 'profile',
-            component: () => import('@/views/ProfileView.vue')
+            component: () => import('@/views/layouts/ProfileLayout.vue'),
+            children: [
+                {
+                    path: '',
+                    name: 'profile',
+                    component: () => import('@/views/ProfileView.vue')
+                }
+            ]
         },
         {
             path: '/',
@@ -57,6 +63,11 @@ const router = createRouter({
             component: () => import('@/views/layouts/PrivateLayout.vue'),
             beforeEnter: isAuth,
             children: [
+                {
+                    path: 'account',
+                    name: 'account',
+                    component: () => import('@/views/AccountView.vue')
+                },
                 {
                     path: 'sign-history',
                     name: 'signHistory',

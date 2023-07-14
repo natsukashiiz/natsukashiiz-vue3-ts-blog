@@ -77,25 +77,14 @@ onBeforeRouteUpdate(async (to, from) => {
 </script>
 
 <template>
-    <n-layout position="absolute" style="top: 60px; bottom: 50px">
-        <n-grid cols="12" item-responsive style="padding-top: 10px">
-            <n-grid-item span="12 400:1 600:1 800:2">
-                <MAvatar vertical :name="uname" />
-            </n-grid-item>
-            <n-grid-item span="12 400:11 600:11 800:10">
-                <n-space vertical>
-                    <div v-for="data in dataList" :key="data.id">
-                        <MBlog :data="data">
-                            <template #header-extra v-if="authStore.payload?.uid == data.uid">
-                                <n-tag v-if="data.publish" type="success">{{
-                                    $t('common.publish')
-                                }}</n-tag>
-                                <n-tag v-else type="error">{{ $t('common.private') }}</n-tag>
-                            </template>
-                        </MBlog>
-                    </div>
-                </n-space>
-            </n-grid-item>
-        </n-grid>
-    </n-layout>
+    <n-space vertical>
+        <div v-for="data in dataList" :key="data.id">
+            <MBlog :data="data">
+                <template #header-extra v-if="authStore.payload?.uid == data.uid">
+                    <n-tag v-if="data.publish" type="success">{{ $t('common.publish') }}</n-tag>
+                    <n-tag v-else type="error">{{ $t('common.private') }}</n-tag>
+                </template>
+            </MBlog>
+        </div>
+    </n-space>
 </template>
