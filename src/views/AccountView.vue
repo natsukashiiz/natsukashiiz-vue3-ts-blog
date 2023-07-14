@@ -155,4 +155,8 @@ onBeforeMount(async () => {
     </n-card>
 </template>
 
-<style scoped></style>
+<style scoped>
+.n-avatar {
+    font-size: 50px;
+}
+</style>
