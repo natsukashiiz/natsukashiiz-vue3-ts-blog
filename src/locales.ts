@@ -18,7 +18,9 @@ export default {
             share: 'Share',
             forgotPassword: 'Forgot password?',
             copyLink: 'Copy link',
-            copied: 'Copied'
+            copied: 'Copied',
+            remove: 'Remove',
+            removed: 'Removed'
         },
         action: {
             submit: 'Submit',
@@ -29,6 +31,7 @@ export default {
             signIn: 'Sign in',
             signUp: 'Create account',
             profile: 'Profile',
+            settings: 'Settings',
             write: 'Write',
             bookmarks: 'Bookmarks',
             signHistory: 'Sign history',
@@ -60,6 +63,13 @@ export default {
             added: 'Added to bookmarks',
             remove: 'Remove from bookmarks',
             removed: 'Removed from bookmarks'
+        },
+        settings: {
+            picture: 'Profile Picture',
+            settings: 'Profile Settings',
+            add: 'Add Profile Picture',
+            update: 'Update Profile Picture',
+            must: 'Must be JPG, JPEG or PNG and cannot exceed 10MB.'
         }
     },
     th: {
@@ -81,7 +91,9 @@ export default {
             share: 'แบ่งปัน',
             forgotPassword: 'ลืมรหัสผ่าน?',
             copyLink: 'คัดลอกลิงค์',
-            copied: 'คัดลอกแล้ว'
+            copied: 'คัดลอก',
+            remove: 'ลบ',
+            removed: 'ลบออก'
         },
         action: {
             submit: 'บันทึก',
@@ -92,6 +104,7 @@ export default {
             signIn: 'เข้าสู่ระบบ',
             signUp: 'ลงทะเบียน',
             profile: 'โปรไฟล์',
+            settings: 'ตั้งค่า',
             write: 'เขียน',
             bookmarks: 'บุ๊กมาร์ก',
             signHistory: 'ประวัติการเข้าสู่ระบบ',
@@ -123,6 +136,13 @@ export default {
             added: 'เพิ่มไปยังบุ๊กมาร์กแล้ว',
             remove: 'ลบออกจากบุ๊กมาร์ก',
             removed: 'ลบออกจากบุ๊กมาร์กแล้ว'
+        },
+        settings: {
+            picture: 'รูปโปรไฟล์',
+            settings: 'การตั้งค่าโปรไฟล์',
+            add: 'เพิ่มรูปโปรไฟล์',
+            update: 'อัพเดทรูปโปรไฟล์',
+            must: 'ต้องเป็น JPG, JPEG หรือ PNG และมีขนาดไม่เกิน 10MB'
         }
     },
     ja: {
@@ -144,7 +164,9 @@ export default {
             share: '共有',
             forgotPassword: 'パスワードをお忘れですか?',
             copyLink: 'リンクをコピーする',
-            copied: 'コピーされました'
+            copied: 'コピーされました',
+            remove: '削除',
+            removed: '削除されました'
         },
         action: {
             submit: 'セーブ',
@@ -155,6 +177,7 @@ export default {
             signIn: 'サインイン',
             signUp: 'サインアップ',
             profile: 'プロフィール',
+            settings: '設定',
             write: '書く',
             bookmarks: 'ブックマーク',
             signHistory: 'ログイン履歴',
@@ -186,6 +209,13 @@ export default {
             added: 'ブックマークから削除されました',
             remove: 'ブックマークから削除',
             removed: 'ブックマークに追加されました'
+        },
+        settings: {
+            picture: 'プロフィールの写真',
+            settings: 'プロファイル設定',
+            add: 'プロフィール写真を追加',
+            update: 'プロフィール写真を更新する',
+            must: 'JPG、JPEG、または PNG である必要があり、10MB を超えることはできません。'
         }
     }
 };

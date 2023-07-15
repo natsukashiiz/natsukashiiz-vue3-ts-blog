@@ -37,9 +37,15 @@ export const useAuthStore = defineStore('auth', () => {
                 return;
             }
 
+            await fetchRefreshToken();
+            return;
+        }
+    }
+
+    async function fetchRefreshToken() {
+        if (refresh.value) {
             const res = await refreshToken({ refreshToken: refresh.value });
             await saveToken(res);
-            return;
         }
     }
 
@@ -78,5 +84,5 @@ export const useAuthStore = defineStore('auth', () => {
 
     loadAuth();
 
-    return { payload, token, refresh, login, logout, isAuthenticated };
+    return { payload, token, refresh, login, logout, isAuthenticated, fetchRefreshToken };
 });

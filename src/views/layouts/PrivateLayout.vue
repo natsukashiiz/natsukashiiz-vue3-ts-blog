@@ -33,6 +33,7 @@ onBeforeMount(() => {
                 show-titile
                 :uid="payload?.uid"
                 :name="payload?.name"
+                :avatar="payload?.avatar"
                 style="margin-top: 15px"
             />
             <n-layout content-style="padding: 10px;">
@@ -40,7 +41,13 @@ onBeforeMount(() => {
             </n-layout>
         </n-space>
         <n-layout-sider v-if="!isMobile" bordered content-style="padding: 50px;">
-            <MAvatar vertical show-titile :uid="payload?.uid" :name="payload?.name" />
+            <MAvatar
+                vertical
+                show-titile
+                :uid="payload?.uid"
+                :name="payload?.name"
+                :avatar="payload?.avatar"
+            />
         </n-layout-sider>
         <n-layout v-if="!isMobile" content-style="padding: 15px;">
             <RouterView />

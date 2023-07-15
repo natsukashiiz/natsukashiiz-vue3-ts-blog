@@ -61,7 +61,7 @@ onBeforeMount(async () => {
             <MBlog :data="data">
                 <template #header>
                     <router-link :to="{ path: `/@${data.uname}` }">
-                        <MAvatar :name="data.uname"
+                        <MAvatar :name="data.uname" :show-name="true" :avatar="data.avatar"
                     /></router-link>
                 </template>
             </MBlog>

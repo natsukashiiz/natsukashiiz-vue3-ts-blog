@@ -61,6 +61,7 @@ export interface TokenPayload {
     uid: number;
     iss: string;
     name: string;
+    avatar: string;
     exp: number;
     iat: number;
 }
@@ -97,6 +98,7 @@ export interface BlogResponse {
     cdt: number;
     uid: number;
     uname: string;
+    avatar: string;
     bookmark: boolean;
 }
 
@@ -117,4 +119,9 @@ export interface BookmarkResponse {
 export interface CategoryResponse {
     id: number;
     name: string;
+}
+
+export interface UserBlogResponse {
+    user: UserResponse;
+    blog: Array<BlogResponse>;
 }

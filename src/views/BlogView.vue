@@ -19,6 +19,7 @@ import { avatarName, renderIcon, useIsMobile, t } from '@/tools/Comm';
 import { useThemeStore } from '@/stores/ThemeStore';
 import { updateTitle } from '@/tools/Comm';
 import { useHead } from '@vueuse/head';
+import MAvatar from '@/components/MAvatar.vue';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -145,9 +146,7 @@ onBeforeMount(async () => {
             <template #header>
                 <router-link :to="{ path: `/@${data.uname}` }">
                     <n-space align="center">
-                        <n-avatar round size="large">
-                            {{ avatarName(data.uname) }}
-                        </n-avatar>
+                        <MAvatar :name="data.uname" :avatar="data.avatar" />
                         <n-space vertical>
                             <n-h6
                                 >{{ data.uname }} <br />

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue';
 import { useLoadingBar, useMessage } from 'naive-ui';
-import type { BlogResponse } from '@/api';
+import type { BlogResponse, UserBlogResponse } from '@/api';
 import { findByUser } from '@/api/blog';
 import 'md-editor-v3/lib/preview.css';
 import { useRoute } from 'vue-router';
@@ -10,14 +10,17 @@ import { onBeforeRouteUpdate } from 'vue-router';
 
 import MBlog from '@/components/MBlog.vue';
 import MAvatar from '@/components/MAvatar.vue';
-import { updateTitle } from '@/tools/Comm';
+import MEmpty from '@/components/MEmpty.vue';
+import { updateTitle, useIsMobile } from '@/tools/Comm';
+import request from '@/api/request';
 
 const message = useMessage();
 const loading = useLoadingBar();
 const authStore = useAuthStore();
 const route = useRoute();
+const isMobile = useIsMobile();
 
-const dataList = ref<Array<BlogResponse>>([]);
+const data = ref<UserBlogResponse>();
 const uname = ref<string>('');
 
 const handlePageChange = async (curPage: number) => {
@@ -42,7 +45,7 @@ async function fetchData() {
         });
         if (res.status === 200 && res.data.code === 0) {
             loading.finish();
-            if (res.data.result) dataList.value = res.data.result;
+            if (res.data.result) data.value = res.data.result;
             if (res.data.pagination) pageCount.value = res.data.pagination.pages;
         }
         if (res.data && res.data.code && res.data.text) {
@@ -61,6 +64,17 @@ async function fetchData() {
 }
 
 onBeforeMount(async () => {
+    request.interceptors.request.use(
+        (config) => {
+            // TODO try auth
+            config.headers.Authorization = `Bearer ${authStore.token}`;
+            return config;
+        },
+        (error) => {
+            console.log('interceptors: ', error);
+        }
+    );
+
     uname.value = String(route.params.uname);
     await fetchData();
 
@@ -77,14 +91,37 @@ onBeforeRouteUpdate(async (to, from) => {
 </script>
 
 <template>
-    <n-space vertical>
-        <div v-for="data in dataList" :key="data.id">
-            <MBlog :data="data">
-                <template #header-extra v-if="authStore.payload?.uid == data.uid">
-                    <n-tag v-if="data.publish" type="success">{{ $t('common.publish') }}</n-tag>
-                    <n-tag v-else type="error">{{ $t('common.private') }}</n-tag>
-                </template>
-            </MBlog>
-        </div>
-    </n-space>
+    <n-layout has-sider position="absolute" style="top: 60px; bottom: 60px">
+        <n-space v-if="isMobile" vertical>
+            <MAvatar
+                vertical
+                show-titile
+                :name="uname"
+                :avatar="data?.user.avatar"
+                can-preview
+                style="margin-top: 15px"
+            />
+            <n-layout content-style="padding: 10px;">
+                <RouterView />
+            </n-layout>
+        </n-space>
+        <n-layout-sider v-if="!isMobile" bordered content-style="padding: 50px;">
+            <MAvatar vertical show-titile :name="uname" :avatar="data?.user.avatar" can-preview />
+        </n-layout-sider>
+        <n-layout v-if="!isMobile" content-style="padding: 15px;">
+            <n-space vertical>
+                <MEmpty v-if="data?.blog.length === 0" />
+                <div v-else v-for="val in data?.blog" :key="val.id">
+                    <MBlog :data="val">
+                        <template #header-extra v-if="authStore.payload?.uid == val.uid">
+                            <n-tag v-if="val.publish" type="success">{{
+                                $t('common.publish')
+                            }}</n-tag>
+                            <n-tag v-else type="error">{{ $t('common.private') }}</n-tag>
+                        </template>
+                    </MBlog>
+                </div>
+            </n-space>
+        </n-layout>
+    </n-layout>
 </template>

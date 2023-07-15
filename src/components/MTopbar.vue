@@ -13,7 +13,8 @@ import {
     MoonOutline as DarkIcon,
     PersonCircleOutline as UserIcon,
     SunnyOutline as LightIcon,
-    TimeOutline as TimeIcon
+    TimeOutline as TimeIcon,
+    SettingsOutline as SettingsIcon
 } from '@vicons/ionicons5';
 import { useAuthStore } from '@/stores/AuthStore';
 import { useThemeStore } from '@/stores/ThemeStore';
@@ -76,6 +77,20 @@ const userMenu: MenuOption[] = [
             ),
         key: 'profile',
         icon: renderIcon(UserIcon)
+    },
+    {
+        label: () =>
+            h(
+                RouterLink,
+                {
+                    to: {
+                        path: `/settings`
+                    }
+                },
+                { default: t('menu.settings') }
+            ),
+        key: 'settings',
+        icon: renderIcon(SettingsIcon)
     },
     {
         label: t('menu.write'),
@@ -304,9 +319,10 @@ function saveLangStore(value: string) {
             </div>
             <!-- user drop down menu -->
             <n-dropdown :options="userMenu" v-else>
-                <n-avatar round style="border: #ff5a99ff 2px solid">
+                <n-avatar v-if="authStore.payload?.avatar == ''" round>
                     {{ avatarName(authStore.payload?.name ?? '?') }}
                 </n-avatar>
+                <n-avatar v-else :src="authStore.payload?.avatar" round />
             </n-dropdown>
         </n-space>
         <n-dropdown v-else :options="mobileMenuOptions">

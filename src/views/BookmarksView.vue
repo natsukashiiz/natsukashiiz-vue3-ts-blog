@@ -6,6 +6,7 @@ import { findAll } from '@/api/bookmark';
 import 'md-editor-v3/lib/preview.css';
 import MBlog from '@/components/MBlog.vue';
 import MAvatar from '@/components/MAvatar.vue';
+import MEmpty from '@/components/MEmpty.vue';
 import router from '@/router';
 import { AxiosError } from 'axios';
 import { updateTitle } from '@/tools/Comm';
@@ -57,10 +58,11 @@ onBeforeMount(async () => {
 
 <template>
     <n-space justify="center">
-        <n-gradient-text size="30" type="warning"> bookmarks </n-gradient-text>
+        <n-gradient-text size="30" type="warning">{{ $t('menu.bookmarks') }} </n-gradient-text>
     </n-space>
     <n-space vertical>
-        <div v-for="data in dataList" :key="data.id">
+        <MEmpty v-if="dataList.length === 0" />
+        <div v-else v-for="data in dataList" :key="data.id">
             <MBlog :data="data.blog">
                 <template #header>
                     <router-link :to="{ path: `/@${data.blog.uname}` }">

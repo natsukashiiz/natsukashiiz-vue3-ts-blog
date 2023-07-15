@@ -1,10 +1,10 @@
-import type { BlogResponse, PaginationParams, ServerResponse } from '@/api';
+import type { BlogResponse, PaginationParams, ServerResponse, UserBlogResponse } from '@/api';
 import client from '@/api/request';
 import type { BlogRequest } from '@/api';
 
 const findAll = (params: PaginationParams): ServerResponse<BlogResponse[]> =>
     client.get('/v1/blog', { params });
-const findByUser = (uname: string, params: PaginationParams): ServerResponse<BlogResponse[]> =>
+const findByUser = (uname: string, params: PaginationParams): ServerResponse<UserBlogResponse> =>
     client.get('/v1/blog/u/' + uname, { params });
 
 const findById = (id: number): ServerResponse<BlogResponse> => client.get('/v1/blog/' + id);

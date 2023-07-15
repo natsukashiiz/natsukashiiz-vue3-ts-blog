@@ -104,7 +104,7 @@ const signInRules: FormRules = {
     username: [
         {
             required: true,
-            message: 'Username is required',
+            message: 'Minimum is 4 and Maximum is 30 characters',
             min: 4,
             max: 30
         }
@@ -112,8 +112,8 @@ const signInRules: FormRules = {
     password: [
         {
             required: true,
-            message: 'Password is required',
-            min: 8,
+            message: 'Minimum is 6 and Maximum is 30 characters',
+            min: 6,
             max: 30
         }
     ]
@@ -129,7 +129,7 @@ const signUpRules: FormRules = {
     username: [
         {
             required: true,
-            message: 'Username is required',
+            message: 'Minimum is 4 and Maximum is 30 characters',
             min: 4,
             max: 30
         }
@@ -137,16 +137,16 @@ const signUpRules: FormRules = {
     password: [
         {
             required: true,
-            message: 'Password is required',
-            min: 8,
+            message: 'Minimum is 6 and Maximum is 30 characters',
+            min: 6,
             max: 30
         }
     ],
     rePassword: [
         {
             required: true,
-            message: 'Re Enter Password is required',
-            min: 8,
+            message: 'Minimum is 6 and Maximum is 30 characters',
+            min: 6,
             max: 30
         }
     ]
@@ -175,6 +175,7 @@ onBeforeMount(() => {
                         <n-form-item path="password" :label="$t('common.password')">
                             <n-input
                                 v-model:value="signInForm.password"
+                                show-password-on="click"
                                 type="password"
                                 @keydown.enter.prevent
                             />
@@ -198,6 +199,7 @@ onBeforeMount(() => {
                         <n-form-item path="password" :label="$t('common.password')">
                             <n-input
                                 v-model:value="signUpForm.password"
+                                show-password-on="click"
                                 type="password"
                                 @keydown.enter.prevent
                             />
@@ -205,6 +207,7 @@ onBeforeMount(() => {
                         <n-form-item path="rePassword" :label="$t('common.rePassword')">
                             <n-input
                                 v-model:value="signUpForm.rePassword"
+                                show-password-on="click"
                                 type="password"
                                 @keydown.enter.prevent
                             />
