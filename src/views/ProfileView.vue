@@ -92,18 +92,17 @@ onBeforeRouteUpdate(async (to, from) => {
 
 <template>
     <n-layout has-sider position="absolute" style="top: 60px; bottom: 60px">
-        <n-space v-if="isMobile" vertical>
-            <MAvatar
-                vertical
-                show-titile
-                :name="uname"
-                :avatar="data?.user.avatar"
-                can-preview
-                style="margin-top: 15px"
-            />
-            <n-layout content-style="padding: 10px;">
-                <RouterView />
-            </n-layout>
+        <n-space v-if="isMobile" vertical style="margin-top: 15px">
+            <MAvatar vertical show-titile :name="uname" :avatar="data?.user.avatar" can-preview />
+            <MEmpty v-if="data?.blog.length === 0" />
+            <div v-else v-for="val in data?.blog" :key="val.id">
+                <MBlog :data="val">
+                    <template #header-extra v-if="authStore.payload?.uid == val.uid">
+                        <n-tag v-if="val.publish" type="success">{{ $t('common.publish') }}</n-tag>
+                        <n-tag v-else type="error">{{ $t('common.private') }}</n-tag>
+                    </template>
+                </MBlog>
+            </div>
         </n-space>
         <n-layout-sider v-if="!isMobile" bordered content-style="padding: 50px;">
             <MAvatar vertical show-titile :name="uname" :avatar="data?.user.avatar" can-preview />

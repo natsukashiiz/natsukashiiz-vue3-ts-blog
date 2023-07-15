@@ -237,6 +237,20 @@ const mobileMenuOptions: MenuOption[] = [
                 icon: renderIcon(UserIcon)
             },
             {
+                label: () =>
+                    h(
+                        RouterLink,
+                        {
+                            to: {
+                                path: `/settings`
+                            }
+                        },
+                        { default: t('menu.settings') }
+                    ),
+                key: 'settings',
+                icon: renderIcon(SettingsIcon)
+            },
+            {
                 label: t('menu.write'),
                 key: 'createBlog',
                 icon: renderIcon(CreateIcon),

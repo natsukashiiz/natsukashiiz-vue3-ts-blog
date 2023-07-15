@@ -172,7 +172,9 @@ onBeforeMount(async () => {
         <template #header>
             <n-space justify="space-between">
                 <n-h3>{{ $t('settings.picture') }}</n-h3>
-                <n-tag type="error">{{ $t('settings.must') }}</n-tag>
+                <n-tag type="error" :size="isMobile ? 'small' : 'medium'">{{
+                    $t('settings.must')
+                }}</n-tag>
             </n-space>
         </template>
         <n-space align="center">
@@ -180,14 +182,20 @@ onBeforeMount(async () => {
                 :name="authStore.payload?.name"
                 :avatar="authStore.payload?.avatar"
                 can-preview
-                :size="100"
+                :size="isMobile ? 80 : 100"
             />
             <n-space vertical>
                 <n-upload :custom-request="customRequest" accept="image/png, image/jpg, image/jpeg">
-                    <n-button v-if="accountRef.avatar" tertiary strong>{{
-                        $t('settings.update')
+                    <n-button
+                        v-if="accountRef.avatar"
+                        tertiary
+                        strong
+                        :size="isMobile ? 'small' : 'medium'"
+                        >{{ $t('settings.update') }}</n-button
+                    >
+                    <n-button v-else tertiary strong :size="isMobile ? 'small' : 'medium'">{{
+                        $t('settings.add')
                     }}</n-button>
-                    <n-button v-else tertiary strong>{{ $t('settings.add') }}</n-button>
                 </n-upload>
             </n-space>
             <n-tooltip trigger="hover">
