@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue';
+import { onBeforeMount, ref, onBeforeUnmount } from 'vue';
 import 'md-editor-v3/lib/style.css';
 import { MdEditor } from 'md-editor-v3';
 import { useLoadingBar, useMessage } from 'naive-ui';
@@ -102,6 +102,11 @@ onBeforeMount(async () => {
     await fetchData();
 
     updateTitle(title.value);
+});
+
+onBeforeUnmount(() => {
+    //TODO :: confirm to leave page if not save is to be current
+    console.log('onBeforeUnmount');
 });
 </script>
 
