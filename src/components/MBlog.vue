@@ -74,59 +74,59 @@ async function handleRemoveBookmark(blogId: number) {
         <n-space justify="space-between">
             <div>
                 <slot name="header"></slot>
-                <n-time :time="new Date(data.cdt)" format="MMM dd, yyyy" />
             </div>
-            <div>
+            <n-space justify="end" style="margin-top: 6px">
                 <slot name="header-extra"></slot>
-            </div>
+                <n-tag>
+                    <n-time :time="new Date(data.cdt)" format="MMM dd, yyyy" />
+                </n-tag>
+                <n-tag strong bordered>
+                    {{ data.category }}
+                </n-tag>
+                <div v-if="authStore.isAuthenticated()">
+                    <n-tooltip trigger="hover" v-if="!bookmarkRef">
+                        <template #trigger>
+                            <n-button size="small" @click="handleAddBookmark(data.id)">
+                                <template #icon>
+                                    <n-icon>
+                                        <BookmarkIcon />
+                                    </n-icon>
+                                </template>
+                            </n-button>
+                        </template>
+                        {{ $t('bookmark.add') }}
+                    </n-tooltip>
+                    <n-tooltip trigger="hover" v-else>
+                        <template #trigger>
+                            <n-button
+                                size="small"
+                                type="primary"
+                                @click="handleRemoveBookmark(data.id)"
+                            >
+                                <template #icon>
+                                    <n-icon>
+                                        <BookmarkActiveIcon />
+                                    </n-icon>
+                                </template>
+                            </n-button>
+                        </template>
+                        {{ $t('bookmark.remove') }}
+                    </n-tooltip>
+                    <n-button
+                        v-if="data.uid === authStore.payload?.uid"
+                        :disabled="isMobile"
+                        size="small"
+                        ghost
+                        :render-icon="renderIcon(PencilIcon)"
+                        @click="() => router.push(`/blog/${data.id}/write`)"
+                        style="margin-left: 10px"
+                    />
+                </div>
+            </n-space>
         </n-space>
         <n-divider />
-        <n-space justify="end">
-            <n-tag strong bordered>
-                {{ data.category }}
-            </n-tag>
-            <div v-if="authStore.isAuthenticated()">
-                <n-tooltip trigger="hover" v-if="!bookmarkRef">
-                    <template #trigger>
-                        <n-button size="small" @click="handleAddBookmark(data.id)">
-                            <template #icon>
-                                <n-icon>
-                                    <BookmarkIcon />
-                                </n-icon>
-                            </template>
-                        </n-button>
-                    </template>
-                    {{ $t('bookmark.add') }}
-                </n-tooltip>
-                <n-tooltip trigger="hover" v-else>
-                    <template #trigger>
-                        <n-button
-                            size="small"
-                            color="#FF9B9B"
-                            @click="handleRemoveBookmark(data.id)"
-                        >
-                            <template #icon>
-                                <n-icon>
-                                    <BookmarkActiveIcon />
-                                </n-icon>
-                            </template>
-                        </n-button>
-                    </template>
-                    {{ $t('bookmark.remove') }}
-                </n-tooltip>
-                <n-button
-                    v-if="data.uid === authStore.payload?.uid"
-                    :disabled="isMobile"
-                    size="small"
-                    ghost
-                    :render-icon="renderIcon(PencilIcon)"
-                    @click="() => router.push(`/blog/${data.id}/write`)"
-                    style="margin-left: 10px"
-                />
-            </div>
-        </n-space>
         <n-h1>
-            <n-text underline>
+            <n-text code strong>
                 {{ data.title }}
             </n-text>
         </n-h1>
