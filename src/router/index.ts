@@ -16,6 +16,11 @@ const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
+            path: '/in',
+            name: 'InfiniteScroll',
+            component: () => import('@/views/InfiniteScroll.vue')
+        },
+        {
             path: '/@:uname',
             name: 'profile',
             component: () => import('@/views/ProfileView.vue')

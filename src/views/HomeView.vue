@@ -9,6 +9,7 @@ import MAvatar from '@/components/MAvatar.vue';
 import router from '@/router';
 import { AxiosError } from 'axios';
 import { defaultTitle } from '@/tools/Comm';
+import { SyncOutline as SyncIcon } from '@vicons/ionicons5';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -16,8 +17,10 @@ const loading = useLoadingBar();
 const dataList = ref<Array<BlogResponse>>([]);
 
 const page = ref<number>(1);
-const pageSize = ref<number>(100);
-const pageCount = ref<number>(100);
+const pageSize = ref<number>(5);
+const dataCount = ref<number>(4);
+
+const loadMoreShow = ref<boolean>(false);
 
 async function fetchData() {
     loading.start();
@@ -29,7 +32,39 @@ async function fetchData() {
         if (res.status === 200 && res.data.code === 0) {
             loading.finish();
             if (res.data.result) dataList.value = res.data.result;
-            if (res.data.pagination) pageCount.value = res.data.pagination.pages;
+            if (res.data.records) dataCount.value = res.data.records;
+        }
+        if (res.data && res.data.code && res.data.text) {
+            loading.error();
+            message.error(res.data.code + ': ' + res.data.text);
+        }
+    } catch (e: unknown) {
+        if (typeof e === 'string') {
+            message.error(e);
+        } else if (e instanceof AxiosError) {
+            if (e.code == 'ERR_NETWORK') {
+                router.push('/server-error');
+            }
+            e.message; // works, `e` narrowed to Error
+            message.error(e.message);
+        }
+        loading.error();
+    }
+}
+
+async function loadMore() {
+    page.value++;
+    loading.start();
+    try {
+        const res = await findAll({
+            page: page.value,
+            limit: pageSize.value
+        });
+        if (res.status === 200 && res.data.code === 0) {
+            loading.finish();
+            if (res.data.result) dataList.value.push(...res.data.result);
+            if (res.data.records) dataCount.value = res.data.records;
+            if (dataCount.value <= page.value * pageSize.value) loadMoreShow.value = false;
         }
         if (res.data && res.data.code && res.data.text) {
             loading.error();
@@ -52,6 +87,8 @@ async function fetchData() {
 onBeforeMount(async () => {
     await fetchData();
     defaultTitle();
+
+    if (dataCount.value > pageSize.value) loadMoreShow.value = true;
 });
 </script>
 
@@ -66,5 +103,12 @@ onBeforeMount(async () => {
                 </template>
             </MBlog>
         </div>
+    </n-space>
+    <n-space justify="center" style="margin-top: 10px">
+        <n-button @click="loadMore" v-show="loadMoreShow" size="small">
+            <n-icon>
+                <SyncIcon />
+            </n-icon>
+        </n-button>
     </n-space>
 </template>

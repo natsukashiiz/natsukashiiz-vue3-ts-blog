@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue';
 import { RouterView } from 'vue-router';
 import type { ConfigProviderProps } from 'naive-ui';
-import themeOverrides from '@/theme'
+import themeOverrides from '@/theme';
 import {
     darkTheme,
     lightTheme,

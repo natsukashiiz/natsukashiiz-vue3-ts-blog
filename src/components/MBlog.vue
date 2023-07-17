@@ -132,8 +132,10 @@ async function handleRemoveBookmark(blogId: number) {
         </n-h1>
         <MdPreview
             editor-id="preview-only"
+            preview-theme="github"
             :theme="useThemeStore().theme"
             :model-value="textLimit(data.content, 200)"
+            language="en-US"
         />
         <n-space justify="end">
             <router-link :to="`/blog/${data.id}`">

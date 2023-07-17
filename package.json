@@ -14,7 +14,8 @@
     },
     "dependencies": {
         "@supercharge/strings": "^2.0.0",
-        "@vueuse/core": "^10.2.0",
+        "@vueuse/components": "^10.2.1",
+        "@vueuse/core": "^10.2.1",
         "@vueuse/head": "^1.1.26",
         "axios": "^1.4.0",
         "dateformat": "^5.0.3",

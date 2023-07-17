@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, ref, onBeforeUnmount } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import 'md-editor-v3/lib/style.css';
 import { MdEditor } from 'md-editor-v3';
 import { useLoadingBar, useMessage } from 'naive-ui';
@@ -8,6 +8,8 @@ import { useRoute } from 'vue-router';
 import router from '@/router';
 import { t, updateTitle } from '@/tools/Comm';
 import { useThemeStore } from '@/stores/ThemeStore';
+import { TrashOutline as TrashIcon } from '@vicons/ionicons5';
+import { onBeforeRouteLeave } from 'vue-router';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -104,9 +106,8 @@ onBeforeMount(async () => {
     updateTitle(title.value);
 });
 
-onBeforeUnmount(() => {
-    //TODO :: confirm to leave page if not save is to be current
-    console.log('onBeforeUnmount');
+onBeforeRouteLeave(async () => {
+    await handleSave();
 });
 </script>
 
@@ -120,14 +121,17 @@ onBeforeUnmount(() => {
             size="large"
             style="width: 50rem"
         />
-        <n-switch
-            v-model:value="publishRef"
-            @update:value="handlePublish"
-            style="margin-bottom: 10px"
-        >
-            <template #checked>{{ $t('common.publish') }}</template>
-            <template #unchecked>{{ $t('common.private') }}</template>
-        </n-switch>
+        <n-space>
+            <n-switch v-model:value="publishRef" @update:value="handlePublish">
+                <template #checked>{{ $t('common.publish') }}</template>
+                <template #unchecked>{{ $t('common.private') }}</template>
+            </n-switch>
+            <n-button size="small" disabled>
+                <n-icon>
+                    <TrashIcon />
+                </n-icon>
+            </n-button>
+        </n-space>
     </n-space>
     <MdEditor
         v-model="text"
