@@ -9,7 +9,7 @@ import {
     LanguageOutline as LangIcon,
     LogInOutline as LoginIcon,
     LogOutOutline as LogoutIcon,
-    MenuOutline as MenuIcon,
+    Menu as MenuIcon,
     MoonOutline as DarkIcon,
     PersonCircleOutline as UserIcon,
     SunnyOutline as LightIcon,
@@ -340,8 +340,8 @@ function saveLangStore(value: string) {
             </n-dropdown>
         </n-space>
         <n-dropdown v-else :options="mobileMenuOptions">
-            <n-button text style="margin-top: 11px; margin-right: 20px">
-                <n-icon size="large">
+            <n-button text style="margin-top: 7px; margin-right: 20px">
+                <n-icon :size="25">
                     <MenuIcon />
                 </n-icon>
             </n-button>

@@ -20,7 +20,8 @@ export default {
             copyLink: 'Copy link',
             copied: 'Copied',
             remove: 'Remove',
-            removed: 'Removed'
+            removed: 'Removed',
+            loadMore: 'Load more'
         },
         action: {
             submit: 'Submit',
@@ -93,7 +94,8 @@ export default {
             copyLink: 'คัดลอกลิงค์',
             copied: 'คัดลอก',
             remove: 'ลบ',
-            removed: 'ลบออก'
+            removed: 'ลบออก',
+            loadMore: 'โหลดเพิ่มเติม'
         },
         action: {
             submit: 'บันทึก',
@@ -166,7 +168,8 @@ export default {
             copyLink: 'リンクをコピーする',
             copied: 'コピーされました',
             remove: '削除',
-            removed: '削除されました'
+            removed: '削除されました',
+            loadMore: 'もっと読む'
         },
         action: {
             submit: 'セーブ',

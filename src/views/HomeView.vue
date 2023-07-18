@@ -9,7 +9,7 @@ import MAvatar from '@/components/MAvatar.vue';
 import router from '@/router';
 import { AxiosError } from 'axios';
 import { defaultTitle } from '@/tools/Comm';
-import { SyncOutline as SyncIcon } from '@vicons/ionicons5';
+import { ChevronDownCircleOutline as LoadMoreIcon } from '@vicons/ionicons5';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -105,10 +105,15 @@ onBeforeMount(async () => {
         </div>
     </n-space>
     <n-space justify="center" style="margin-top: 10px">
-        <n-button @click="loadMore" v-show="loadMoreShow" size="small">
-            <n-icon>
-                <SyncIcon />
-            </n-icon>
-        </n-button>
+        <n-tooltip trigger="hover">
+            <template #trigger>
+                <n-button @click="loadMore" v-show="loadMoreShow" size="small" text>
+                    <n-icon :size="30">
+                        <LoadMoreIcon />
+                    </n-icon>
+                </n-button>
+            </template>
+            {{ $t('common.loadMore') }}
+        </n-tooltip>
     </n-space>
 </template>

@@ -7,7 +7,7 @@ import 'md-editor-v3/lib/preview.css';
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/AuthStore';
 import { onBeforeRouteUpdate } from 'vue-router';
-import { SyncOutline as SyncIcon } from '@vicons/ionicons5';
+import { ChevronDownCircleOutline as LoadMoreIcon } from '@vicons/ionicons5';
 import MBlog from '@/components/MBlog.vue';
 import MAvatar from '@/components/MAvatar.vue';
 import MEmpty from '@/components/MEmpty.vue';
@@ -126,6 +126,18 @@ onBeforeRouteUpdate(async (to, from) => {
                     </template>
                 </MBlog>
             </div>
+            <n-space justify="center" style="margin-top: 10px">
+                <n-tooltip trigger="hover">
+                    <template #trigger>
+                        <n-button @click="loadMore" v-show="loadMoreShow" size="small" text>
+                            <n-icon :size="30">
+                                <LoadMoreIcon />
+                            </n-icon>
+                        </n-button>
+                    </template>
+                    {{ $t('common.loadMore') }}
+                </n-tooltip>
+            </n-space>
         </n-space>
         <n-layout-sider v-if="!isMobile" bordered content-style="padding: 50px;">
             <MAvatar vertical show-titile :name="uname" :avatar="data?.user.avatar" can-preview />
@@ -145,11 +157,16 @@ onBeforeRouteUpdate(async (to, from) => {
                 </div>
             </n-space>
             <n-space justify="center" style="margin-top: 10px">
-                <n-button @click="loadMore" v-show="loadMoreShow" size="small">
-                    <n-icon>
-                        <SyncIcon />
-                    </n-icon>
-                </n-button>
+                <n-tooltip trigger="hover">
+                    <template #trigger>
+                        <n-button @click="loadMore" v-show="loadMoreShow" size="small" text>
+                            <n-icon :size="30">
+                                <LoadMoreIcon />
+                            </n-icon>
+                        </n-button>
+                    </template>
+                    {{ $t('common.loadMore') }}
+                </n-tooltip>
             </n-space>
         </n-layout>
     </n-layout>

@@ -18,8 +18,8 @@ import {
 import { useThemeStore } from '@/stores/ThemeStore';
 
 import MTopbar from '@/components/MTopbar.vue';
-import MModalWrite from './components/MModalWrite.vue';
-import MFooter from './components/MFooter.vue';
+import MModalWrite from '@/components/MModalWrite.vue';
+import MFooter from '@/components/MFooter.vue';
 
 const themeRef = ref<string>('light');
 const configProviderPropsRef = computed<ConfigProviderProps>(() => ({
