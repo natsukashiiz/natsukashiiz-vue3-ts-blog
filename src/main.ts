@@ -5,6 +5,7 @@ import { createPinia } from 'pinia';
 import Naive from 'naive-ui';
 import { createI18n } from 'vue-i18n';
 import { createHead } from '@vueuse/head';
+import { VueQueryPlugin, type VueQueryPluginOptions } from '@tanstack/vue-query';
 
 import App from './App.vue';
 import router from './router';
@@ -18,6 +19,17 @@ const i18n = createI18n({
     messages: locales
 });
 
+const vueQueryPluginOptions: VueQueryPluginOptions = {
+    queryClientConfig: {
+        defaultOptions: {
+            queries: {
+                refetchOnWindowFocus: false,
+                refetchOnMount: false
+            }
+        }
+    }
+};
+
 const app = createApp(App);
 const head = createHead();
 
@@ -25,6 +37,7 @@ app.use(createPinia());
 app.use(head);
 app.use(i18n);
 app.use(router);
+app.use(VueQueryPlugin, vueQueryPluginOptions);
 app.use(Naive);
 
 app.mount('#app');

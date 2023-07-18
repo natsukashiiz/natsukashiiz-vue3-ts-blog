@@ -10,6 +10,7 @@ import router from '@/router';
 import { AxiosError } from 'axios';
 import { defaultTitle } from '@/tools/Comm';
 import { ChevronDownCircleOutline as LoadMoreIcon } from '@vicons/ionicons5';
+import { useQuery, useIsFetching } from '@tanstack/vue-query';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -84,8 +85,37 @@ async function loadMore() {
     }
 }
 
+function fetcher() {
+    return useQuery({
+        queryKey: ['blogs', page.value],
+        queryFn: async () => {
+            try {
+                return await findAll({
+                    page: page.value,
+                    limit: pageSize.value
+                });
+            } catch (e: unknown) {
+                if (typeof e === 'string') {
+                    message.error(e);
+                } else if (e instanceof AxiosError) {
+                    if (e.code == 'ERR_NETWORK') {
+                        router.push('/server-error');
+                    }
+                    e.message; // works, `e` narrowed to Error
+                    message.error(e.message);
+                }
+            }
+        },
+        keepPreviousData: true
+    });
+}
+
+const { data } = fetcher();
+if (useIsFetching()) loading.start();
+
 onBeforeMount(async () => {
-    await fetchData();
+    // fetcher();
+    // await fetchData();
     defaultTitle();
 
     if (dataCount.value > pageSize.value) loadMoreShow.value = true;
@@ -93,12 +123,12 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-    <n-space vertical>
-        <div v-for="data in dataList" :key="data.id">
-            <MBlog :data="data">
+    <n-space v-if="data" vertical>
+        <div v-for="item in data?.data.result" :key="item.id">
+            <MBlog :data="item">
                 <template #header>
-                    <router-link :to="{ path: `/@${data.uname}` }">
-                        <MAvatar :name="data.uname" :show-name="true" :avatar="data.avatar"
+                    <router-link :to="{ path: `/@${item.uname}` }">
+                        <MAvatar :name="item.uname" :show-name="true" :avatar="item.avatar"
                     /></router-link>
                 </template>
             </MBlog>
