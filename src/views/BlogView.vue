@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue';
+import { ref } from 'vue';
 import { useLoadingBar, useMessage } from 'naive-ui';
 import {
     Close as CloseIcon,
@@ -8,18 +8,18 @@ import {
     LogoFacebook as FacebookIcon,
     ShareOutline as ShareIcon
 } from '@vicons/ionicons5';
-import type { BlogResponse } from '@/api';
 import { findById } from '@/api/blog';
 import { MdPreview } from 'md-editor-v3';
 import 'md-editor-v3/lib/preview.css';
 import { useRoute } from 'vue-router';
 import router from '@/router';
 import { useAuthStore } from '@/stores/AuthStore';
-import { avatarName, renderIcon, useIsMobile, t } from '@/tools/Comm';
+import { renderIcon, useIsMobile, t } from '@/tools/Comm';
 import { useThemeStore } from '@/stores/ThemeStore';
 import { updateTitle } from '@/tools/Comm';
 import { useHead } from '@vueuse/head';
 import MAvatar from '@/components/MAvatar.vue';
+import { useQuery } from '@tanstack/vue-query';
 
 const message = useMessage();
 const loading = useLoadingBar();
@@ -28,17 +28,6 @@ const authStore = useAuthStore();
 const isMobile = useIsMobile();
 
 const blogId = ref<number>(0);
-const data = ref<BlogResponse>({
-    id: 0,
-    title: 'string',
-    content: '?',
-    category: '?',
-    publish: false,
-    cdt: 0,
-    uid: 0,
-    uname: '?',
-    bookmark: false
-});
 const showModalOfShare = ref<boolean>(false);
 const url = ref<string>(window.location.href);
 
@@ -52,50 +41,47 @@ async function copyLink() {
     }
 }
 
-async function fetchData() {
-    loading.start();
-    try {
-        const res = await findById(blogId.value);
-        if (res.status === 200 && res.data.code === 0) {
-            if (res.data.result) {
-                data.value = res.data.result;
+if (route.params.id === null) router.push({ name: 'home' });
+blogId.value = Number(route.params.id);
+const { isSuccess, data } = useQuery({
+    queryKey: ['blog', blogId],
+    queryFn: async () => {
+        loading.start();
+        try {
+            const res = await findById(blogId.value);
+            if (res.status === 200 && res.data.code === 0) {
+                if (res.data.result) {
+                    loading.finish();
+
+                    const result = res.data.result;
+                    updateTitle(result.title);
+                    useHead({
+                        title: result.title,
+                        meta: [
+                            { property: 'og:title', content: result.title },
+                            { property: 'og:content', content: result.content }
+                        ]
+                    });
+
+                    return res.data.result;
+                }
             }
-            loading.finish();
-            return;
-        }
 
-        if (res.data.code === 421) {
-            message.error(res.data.text);
+            if (res.data.code === 421) {
+                message.error(res.data.text);
+                loading.error();
+                await router.push({ name: 'notFound' });
+            }
+        } catch (e: unknown) {
+            if (typeof e === 'string') {
+                message.error(e);
+            } else if (e instanceof Error) {
+                e.message; // works, `e` narrowed to Error
+                message.error(e.message);
+            }
             loading.error();
-            await router.push({ name: 'notFound' });
         }
-    } catch (e: unknown) {
-        if (typeof e === 'string') {
-            message.error(e);
-        } else if (e instanceof Error) {
-            e.message; // works, `e` narrowed to Error
-            message.error(e.message);
-        }
-        loading.error();
     }
-}
-
-onBeforeMount(async () => {
-    if (route.params.id == null) {
-        await router.push({ name: 'home' });
-    }
-
-    blogId.value = Number(route.params.id);
-    await fetchData();
-
-    updateTitle(data.value.title);
-    useHead({
-        title: data.value.title,
-        meta: [
-            { property: 'og:title', content: data.value.title },
-            { property: 'og:content', content: data.value.content }
-        ]
-    });
 });
 </script>
 
@@ -141,7 +127,7 @@ onBeforeMount(async () => {
         </n-card>
     </n-modal>
 
-    <n-space vertical>
+    <n-space vertical v-if="isSuccess && data">
         <n-card :bordered="false">
             <template #header>
                 <router-link :to="{ path: `/@${data.uname}` }">
