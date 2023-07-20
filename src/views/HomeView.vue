@@ -20,7 +20,7 @@ const dataList = ref<Array<BlogResponse>>([]);
 const page = ref<number>(1);
 const pageSize = ref<number>(5);
 const dataCount = ref<number>(4);
-const moreShow = ref<boolean>(true);
+const moreShow = ref<boolean>(false);
 
 const { isSuccess, isPreviousData, data } = useQuery({
     queryKey: ['blogs', page],
@@ -36,6 +36,7 @@ const { isSuccess, isPreviousData, data } = useQuery({
                 if (res.data.result) dataList.value.push(...res.data.result);
                 if (res.data.records) dataCount.value = res.data.records;
                 if (dataCount.value <= page.value * pageSize.value) moreShow.value = false;
+                else moreShow.value = true;
                 return dataList.value;
             }
             if (res.data && res.data.code && res.data.text) {
