@@ -23,7 +23,7 @@ const vueQueryPluginOptions: VueQueryPluginOptions = {
     queryClientConfig: {
         defaultOptions: {
             queries: {
-                refetchOnWindowFocus: false,
+                refetchOnWindowFocus: true,
                 refetchOnMount: false
             }
         }
