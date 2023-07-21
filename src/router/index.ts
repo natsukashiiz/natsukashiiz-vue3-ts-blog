@@ -40,7 +40,7 @@ const router = createRouter({
                     component: () => import('@/views/SignInView.vue')
                 },
                 {
-                    path: '/@:uname/blog/:id',
+                    path: 'blog/:id',
                     name: 'blog',
                     component: () => import('@/views/BlogView.vue')
                 },

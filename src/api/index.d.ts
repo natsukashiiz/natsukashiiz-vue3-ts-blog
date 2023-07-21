@@ -86,7 +86,6 @@ export interface SignHistoryResponse {
     id: number;
     ipv4: string;
     device: DeviceState;
-    deviceName: string;
     cdt: number;
 }
 

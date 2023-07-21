@@ -20,7 +20,7 @@ const handlePageSizeChange = async (curPageSize: number) => {
 };
 const page = ref<number>(1);
 const pageSize = ref<number>(10);
-const pageCount = ref<number>(1);
+const pageCount = ref<number>(100);
 
 const columns: DataTableColumns<SignHistoryResponse> = [
     {
@@ -44,7 +44,7 @@ const columns: DataTableColumns<SignHistoryResponse> = [
                     bordered: false,
                     type: 'info'
                 },
-                { default: t(`device.${row.deviceName}`) }
+                { default: t(`device.${row.device}`) }
             );
         }
     },
@@ -61,17 +61,16 @@ const columns: DataTableColumns<SignHistoryResponse> = [
 ];
 
 async function fetchData() {
-    isMobile ? (pageSize.value = 5) : (pageSize.value = 10);
     loading.start();
     try {
         const res = await signHistory({
             page: page.value,
-            limit: pageSize.value
+            limit: isMobile ? 5 : pageSize.value
         });
         if (res.status === 200 && res.data.code === 0) {
             loading.finish();
             if (res.data.result) signHistoryList.value = res.data.result;
-            if (res.data.records) pageCount.value = Math.floor(res.data.records / pageSize.value);
+            if (res.data.pagination) pageCount.value = res.data.records;
         }
         if (res.data && res.data.code && res.data.text) {
             loading.error();
@@ -96,14 +95,13 @@ onBeforeMount(async () => {
 
 <template>
     <n-data-table :columns="columns" :data="signHistoryList" />
-    <n-space :justify="`${isMobile ? 'center' : 'end'}`">
+    <n-space justify="end">
         <n-pagination
             v-model:page="page"
             v-model:page-size="pageSize"
             :page-count="pageCount"
-            :show-size-picker="!isMobile"
+            show-size-picker
             :page-sizes="[10, 30, 50, 100]"
-            :page-slot="6"
             :on-update:page="handlePageChange"
             :on-update:page-size="handlePageSizeChange"
             style="margin-top: 10px"

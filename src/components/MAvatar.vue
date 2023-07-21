@@ -31,7 +31,6 @@ function handlePreview() {
             :src="avatar"
             style="cursor: pointer"
             :size="size"
-            lazy
         />
         <n-avatar v-else round :size="size">
             {{ avatarName(name || '?') }}
