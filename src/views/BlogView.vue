@@ -30,13 +30,14 @@ const isMobile = useIsMobile();
 const blogId = ref<number>(0);
 const data = ref<BlogResponse>({
     id: 0,
-    title: 'string',
-    content: '?',
-    category: '?',
+    title: '',
+    content: '',
+    category: '',
     publish: false,
     cdt: 0,
     uid: 0,
-    uname: '?',
+    uname: '',
+    avatar: '',
     bookmark: false
 });
 const showModalOfShare = ref<boolean>(false);
@@ -141,8 +142,8 @@ onBeforeMount(async () => {
         </n-card>
     </n-modal>
 
-    <n-space vertical>
-        <n-card :bordered="false">
+    <n-space v-if="data.id !== 0" vertical>
+        <n-card>
             <template #header>
                 <router-link :to="{ path: `/@${data.uname}` }">
                     <n-space align="center">
@@ -171,7 +172,7 @@ onBeforeMount(async () => {
                             @click="() => router.push(`/blog/${data.id}/write`)"
                             style="margin-right: 5px"
                         />
-                        <n-tooltip trigger="hover">
+                        <n-tooltip v-if="data.publish" trigger="hover">
                             <template #trigger>
                                 <n-button size="small" ghost @click="showModalOfShare = true">
                                     <template #icon>
@@ -190,6 +191,7 @@ onBeforeMount(async () => {
                 </n-space>
             </template>
             <MdPreview
+                v-if="data.publish"
                 editor-id="preview-only"
                 :model-value="data.content"
                 :theme="useThemeStore().theme"

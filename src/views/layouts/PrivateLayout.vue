@@ -26,20 +26,19 @@ onBeforeMount(() => {
 </script>
 
 <template>
-    <n-layout has-sider position="absolute" style="top: 60px; bottom: 60px">
-        <n-space v-if="isMobile" vertical>
+    <n-layout v-if="isMobile" position="absolute" style="top: 60px; bottom: 60px; padding: 7px">
+        <n-space vertical style="margin-top: 15px">
             <MAvatar
                 vertical
                 show-titile
                 :uid="payload?.uid"
                 :name="payload?.name"
                 :avatar="payload?.avatar"
-                style="margin-top: 15px"
             />
-            <n-layout content-style="padding: 10px;">
-                <RouterView />
-            </n-layout>
+            <RouterView />
         </n-space>
+    </n-layout>
+    <n-layout v-else has-sider position="absolute" style="top: 60px; bottom: 60px">
         <n-layout-sider v-if="!isMobile" bordered content-style="padding: 50px;">
             <MAvatar
                 vertical

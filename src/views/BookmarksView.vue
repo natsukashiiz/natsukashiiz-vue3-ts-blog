@@ -58,7 +58,7 @@ onBeforeMount(async () => {
 
 <template>
     <n-space justify="center">
-        <n-gradient-text size="30" type="warning">{{ $t('menu.bookmarks') }} </n-gradient-text>
+        <n-gradient-text size="30" type="info">{{ $t('menu.bookmarks') }} </n-gradient-text>
     </n-space>
     <n-space vertical>
         <MEmpty v-if="dataList.length === 0" />
@@ -66,7 +66,7 @@ onBeforeMount(async () => {
             <MBlog :data="data.blog">
                 <template #header>
                     <router-link :to="{ path: `/@${data.blog.uname}` }">
-                        <MAvatar :name="data.blog.uname"
+                        <MAvatar :name="data.blog.uname" show-name :avatar="data.blog.avatar"
                     /></router-link>
                 </template>
             </MBlog>

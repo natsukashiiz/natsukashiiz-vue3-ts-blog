@@ -14,7 +14,7 @@ import { useAuthStore } from '@/stores/AuthStore';
 import { onBeforeMount, ref } from 'vue';
 import router from '@/router';
 
-const { data } = defineProps<{
+const props = defineProps<{
     data: BlogResponse;
 }>();
 
@@ -25,7 +25,7 @@ const isMobile = useIsMobile();
 const bookmarkRef = ref<boolean>(true);
 
 onBeforeMount(() => {
-    bookmarkRef.value = data.bookmark || false;
+    bookmarkRef.value = props.data.bookmark || false;
 });
 
 // function
@@ -70,7 +70,7 @@ async function handleRemoveBookmark(blogId: number) {
 </script>
 
 <template>
-    <n-card>
+    <n-card :embedded="!data.publish" bordered>
         <n-space justify="space-between">
             <div>
                 <slot name="header"></slot>
@@ -83,7 +83,12 @@ async function handleRemoveBookmark(blogId: number) {
                 <n-tag strong bordered>
                     {{ data.category }}
                 </n-tag>
-                <div v-if="authStore.isAuthenticated()">
+                <div
+                    v-if="
+                        authStore.isAuthenticated() &&
+                        (data.publish || data.uid === authStore.payload?.uid)
+                    "
+                >
                     <n-tooltip trigger="hover" v-if="!bookmarkRef">
                         <template #trigger>
                             <n-button size="small" @click="handleAddBookmark(data.id)">
@@ -131,14 +136,15 @@ async function handleRemoveBookmark(blogId: number) {
             </n-text>
         </n-h1>
         <MdPreview
+            v-if="data.publish"
             editor-id="preview-only"
             preview-theme="github"
             :theme="useThemeStore().theme"
             :model-value="textLimit(data.content, 200)"
             language="en-US"
         />
-        <n-space justify="end">
-            <router-link :to="`/blog/${data.id}`">
+        <n-space v-if="data.publish" justify="end">
+            <router-link :to="`/@${data.uname}/blog/${data.id}`">
                 {{ $t('common.readMore') }}
             </router-link>
         </n-space>
