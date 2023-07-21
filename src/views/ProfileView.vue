@@ -114,8 +114,8 @@ onBeforeRouteUpdate(async (to, from) => {
 </script>
 
 <template>
-    <n-layout v-if="isMobile" position="absolute" style="top: 60px; bottom: 60px">
-        <n-space vertical style="margin-top: 15px">
+    <n-layout has-sider position="absolute" style="top: 60px; bottom: 60px">
+        <n-space v-if="isMobile" vertical style="margin-top: 15px">
             <MAvatar vertical show-titile :name="uname" :avatar="data?.user.avatar" can-preview />
             <MEmpty v-if="data?.blog.length === 0" />
             <div v-else v-for="val in data?.blog" :key="val.id">
@@ -139,12 +139,10 @@ onBeforeRouteUpdate(async (to, from) => {
                 </n-tooltip>
             </n-space>
         </n-space>
-    </n-layout>
-    <n-layout v-else has-sider position="absolute" style="top: 60px; bottom: 60px">
-        <n-layout-sider bordered content-style="padding: 50px;">
+        <n-layout-sider v-if="!isMobile" bordered content-style="padding: 50px;">
             <MAvatar vertical show-titile :name="uname" :avatar="data?.user.avatar" can-preview />
         </n-layout-sider>
-        <n-layout content-style="padding: 15px;">
+        <n-layout v-if="!isMobile" content-style="padding: 15px;">
             <MEmpty v-if="data?.blog.length === 0" />
             <n-space v-else vertical>
                 <div v-for="val in data?.blog" :key="val.id">
